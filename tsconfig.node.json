@@ -5,7 +5,10 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
-
+    "paths" : {
+      "@/*" : ["src/*"],
+      "@public/*" :["public/*"]
+    },
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
