@@ -1,11 +1,14 @@
-import { useState, useRef } from "react";
-// import * as songs from "@public/tracks/downloads";
-import water from "@/assets/downloads/water.bd8c900d.ogg";
-const WhiteNoisePlayer = () => {
+import { useState, useRef, ReactNode } from "react";
+import { IconType } from "react-icons";
+// import songs from "@/assets/tracks/downloads/";
+
+type WhiteNoiseProps = {
+  path: string;
+  title: string;
+};
+const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title }) => {
   const [isPlaying, setisPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  console.log(water.split("/").pop());
-  // const songPath = "tracks/downloads/leaves.8ea2b102.ogg";
   const togglePlay = () => {
     if (isPlaying) {
       audioRef.current?.pause();
@@ -17,12 +20,17 @@ const WhiteNoisePlayer = () => {
 
   return (
     <div>
-      <h1>White Noise Player</h1>
-      <button onClick={togglePlay}>{isPlaying ? "Pause" : "Play"}</button>
-      <audio ref={audioRef} loop>
-        <source src={water} type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
+      <div className="grid grid-cols-3">
+        <div className="col-span-1">{title}</div>
+        <div className="col-span-1">{/* icon */}</div>
+        <div className="col-span-1">
+          <button onClick={togglePlay}>{isPlaying ? "Pause" : "Play"}</button>
+          <audio ref={audioRef} loop>
+            <source src={path} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
     </div>
   );
 };
