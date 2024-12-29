@@ -1,18 +1,18 @@
-import "./App.css";
-import Layout from "./components/Layout";
-import WhiteNoisePlayer from "./components/WhiteNoisePlayer";
-import { soundsAssets } from "./helpers/utils";
-import { BsSoundwave } from "react-icons/bs";
+import './App.css'
+import Layout from './components/Layout'
+import WhiteNoisePlayer from './components/WhiteNoisePlayer'
+import { soundsAssets } from './helpers/utils'
+import { BsSoundwave } from 'react-icons/bs'
 
 const whiteNoisesArr =
   // eslint-disable-next-line
   Object.entries(soundsAssets)?.map(([path, module]) => {
     return {
-      title: path?.split("/")?.pop()?.split(".")?.shift() || "",
+      title: path?.split('/')?.pop()?.split('.')?.shift() || '',
       Icon: BsSoundwave,
       path,
-    };
-  }) || [];
+    }
+  }) || []
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
           ))}
       </Layout>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

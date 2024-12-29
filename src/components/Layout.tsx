@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 type LayoutProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="container m-auto grid grid-cols-4 mt-8 gap-y-4">
@@ -10,7 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </div>
       <div className="col-span-full grid grid-cols-4">{children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout
