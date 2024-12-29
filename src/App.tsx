@@ -1,19 +1,19 @@
 import "./App.css";
 import Layout from "./components/Layout";
 import WhiteNoisePlayer from "./components/WhiteNoisePlayer";
-// import { GiWaterMill } from "react-icons/gi";
-// import train from "@/assets/downloads/train.5b190888.ogg";
 import { soundsAssets } from "./helpers/utils";
+import { BsSoundwave } from "react-icons/bs";
 
-console.log(soundsAssets);
 const whiteNoisesArr =
+  // eslint-disable-next-line
   Object.entries(soundsAssets)?.map(([path, module]) => {
     return {
-      title: path?.split("/").pop().split(".").shift() || "",
+      title: path?.split("/")?.pop()?.split(".")?.shift() || "",
+      Icon: BsSoundwave,
       path,
     };
   }) || [];
-console.log(whiteNoisesArr);
+
 function App() {
   return (
     <>
@@ -25,6 +25,7 @@ function App() {
               {...{
                 title: _.title,
                 path: _.path,
+                Icon: _.Icon,
               }}
             />
           ))}

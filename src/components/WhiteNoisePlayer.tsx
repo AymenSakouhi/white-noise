@@ -1,12 +1,12 @@
 import { useState, useRef, ReactNode } from "react";
 import { IconType } from "react-icons";
-// import songs from "@/assets/tracks/downloads/";
 
 type WhiteNoiseProps = {
   path: string;
   title: string;
+  Icon: IconType;
 };
-const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title }) => {
+const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title, Icon }) => {
   const [isPlaying, setisPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const togglePlay = () => {
@@ -20,11 +20,16 @@ const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-3">
-        <div className="col-span-1">{title}</div>
-        <div className="col-span-1">{/* icon */}</div>
-        <div className="col-span-1">
-          <button onClick={togglePlay}>{isPlaying ? "Pause" : "Play"}</button>
+      <div className="my-2 flex flex-col items-center justify-center gap-1">
+        <div className="text-zinc-200 text-2xl text-ellipsis">{title}</div>
+        <Icon color={"gold"} size={40} />
+        <div>
+          <button
+            className="bg-gray-300 hover:text-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+            onClick={togglePlay}
+          >
+            {isPlaying ? "Pause" : "Play"}
+          </button>
           <audio ref={audioRef} loop>
             <source src={path} type="audio/mpeg" />
             Your browser does not support the audio element.
