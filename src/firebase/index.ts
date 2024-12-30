@@ -12,10 +12,10 @@ const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_AUTHDOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.STORAGEBUCKET,
-  messagingSenderId: import.meta.env.PROJECTNUMBER,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_PROJECTNUMBER,
   appId: import.meta.env.VITE_APPID,
-  measurementId: import.meta.env.MEASUREMENTID,
+  measurementId: import.meta.env.VITE_MEASUREMENTID,
 }
 
 // Initialize Firebase
