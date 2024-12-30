@@ -1,4 +1,4 @@
-import { useState, useRef, ReactNode } from 'react'
+import { useState, useRef } from 'react'
 import { IconType } from 'react-icons'
 
 type WhiteNoiseProps = {
