@@ -23,6 +23,9 @@ function App() {
     <>
       {currentUser ? (
         <Layout>
+          <div className="col-span-full text-sky-200 text-2xl text-center">
+            Choose your best comination
+          </div>
           {whiteNoisesArr &&
             whiteNoisesArr?.map((_) => (
               <WhiteNoisePlayer
