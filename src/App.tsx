@@ -1,10 +1,10 @@
 import './App.css'
-import Layout from './components/Layout'
+import Layout from './components/reusable/Layout'
 import WhiteNoisePlayer from '@/components/WhiteNoisePlayer'
 import { soundsAssets } from '@/helpers/utils'
 import { BsSoundwave } from 'react-icons/bs'
 import { useAuth } from '@/components/AuthContext'
-import GoogleSignIn from '@/components/GoogleSignIn'
+import GoogleSignIn from '@/components/reusable/GoogleSignIn'
 
 // eslint-disable-next-line
 const whiteNoisesArr =
