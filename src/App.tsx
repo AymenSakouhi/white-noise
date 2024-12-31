@@ -1,4 +1,3 @@
-import './App.css'
 import Layout from './components/reusable/Layout'
 import WhiteNoisePlayer from '@/components/WhiteNoisePlayer'
 import { soundsAssets } from '@/helpers/utils'
