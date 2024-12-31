@@ -9,6 +9,7 @@ enum TIMERANGES {
 const Pomodoro = () => {
   const [mode, setMode] = useState(TIMERANGES.QUARTER)
   const [timer, setTimer] = useState(TIMERANGES.QUARTER)
+  const [timerPausable, setTimerPausable] = useState<boolean>(false)
   const [breakTimer, setBreakTimer] = useState(TIMERANGES.QUARTER)
   const [isActive, setIsActive] = useState(false)
 
@@ -26,11 +27,13 @@ const Pomodoro = () => {
 
   const handleTimer = () => {
     setIsActive(!isActive)
+    setTimerPausable(!timerPausable)
   }
 
   const handleReset = () => {
     setIsActive(false)
     setTimer(mode)
+    setTimerPausable(false)
   }
   return (
     <>
@@ -59,7 +62,7 @@ const Pomodoro = () => {
             {!isActive ? 'Start' : 'Pause'}
           </button>
 
-          <button disabled={!isActive} onClick={handleReset}>
+          <button disabled={!isActive && timerPausable} onClick={handleReset}>
             Reset
           </button>
         </div>
