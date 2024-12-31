@@ -2,7 +2,7 @@ export const soundsAssets = import.meta.glob('@/assets/downloads/*', {
   eager: true,
 })
 
-export const converTime = (t) => {
+export const converTime = (t: number) => {
   const timestamp = new Date(t)
   const minutes = timestamp.getMinutes()
   const seconds = timestamp.getSeconds()

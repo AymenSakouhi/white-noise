@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { converTime } from '@/helpers/utils'
 
 enum TIMERANGES {
@@ -9,6 +9,7 @@ enum TIMERANGES {
 const Pomodoro = () => {
   const [mode, setMode] = useState(TIMERANGES.QUARTER)
   const [timer, setTimer] = useState(TIMERANGES.QUARTER)
+  const [breakTimer, setBreakTimer] = useState(TIMERANGES.QUARTER)
   const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
@@ -34,26 +35,34 @@ const Pomodoro = () => {
   return (
     <>
       <div className="col-span-full flex flex-col items-center justify-center">
-        <div className="flex justify-center items-center space-x-2">
-          <button className="tabs">Focus</button>
-          <button className="tabs">Break</button>
-        </div>
-        <section>
-          <div id="timer" className="text-9xl text-white bg-teal-600">
-            {converTime(timer)}
+        <div>
+          <div className="flex justify-center items-center space-x-2">
+            <button className="tabs" id="focusTab">
+              Focus
+            </button>
+            <button className="tabs" id="BreakTab">
+              Break
+            </button>
           </div>
-        </section>
-        <button
-          onClick={() => {
-            handleTimer('HALF')
-          }}
-        >
-          {!isActive ? 'Start' : 'Pause'}
-        </button>
+          <section>
+            <div id="timer" className="text-9xl text-white bg-teal-600">
+              {converTime(timer)}
+            </div>
+          </section>
+        </div>
+        <div className="flex flex-row gap-2">
+          <button
+            onClick={() => {
+              handleTimer()
+            }}
+          >
+            {!isActive ? 'Start' : 'Pause'}
+          </button>
 
-        <button disabled={!isActive} onClick={handleReset}>
-          Reset
-        </button>
+          <button disabled={!isActive} onClick={handleReset}>
+            Reset
+          </button>
+        </div>
       </div>
     </>
   )

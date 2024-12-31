@@ -6,6 +6,7 @@ import { BsSoundwave } from 'react-icons/bs'
 import { useAuth } from '@/components/AuthContext'
 import GoogleSignIn from '@/components/reusable/GoogleSignIn'
 import Pomodoro from '@/components/Pomodoro'
+import AddYourNoise from './components/AddYourNoise'
 
 // eslint-disable-next-line
 const whiteNoisesArr =
@@ -39,6 +40,7 @@ function App() {
                 }}
               />
             ))}
+          <AddYourNoise />
         </Layout>
       ) : (
         <GoogleSignIn />
