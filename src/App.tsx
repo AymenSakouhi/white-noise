@@ -5,6 +5,7 @@ import { soundsAssets } from '@/helpers/utils'
 import { BsSoundwave } from 'react-icons/bs'
 import { useAuth } from '@/components/AuthContext'
 import GoogleSignIn from '@/components/reusable/GoogleSignIn'
+import Pomodoro from '@/components/Pomodoro'
 
 // eslint-disable-next-line
 const whiteNoisesArr =
@@ -23,6 +24,7 @@ function App() {
     <>
       {currentUser ? (
         <Layout>
+          <Pomodoro />
           <div className="col-span-full text-sky-200 text-2xl text-center">
             Choose your best comination
           </div>
