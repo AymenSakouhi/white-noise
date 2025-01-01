@@ -4,6 +4,17 @@ export const soundsAssets = import.meta.glob('@/assets/downloads/*', {
   eager: true,
 })
 
+export const debounce: (
+  func: (...args: unknown[]) => void,
+  delay: number,
+) => void = (func, delay) => {
+  let timer: NodeJS.Timeout
+  return (...args: unknown[]) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => func(...args), delay)
+  }
+}
+
 export const converTime = (t: number) => {
   const timestamp = new Date(t)
   const minutes = timestamp.getMinutes()
