@@ -1,6 +1,10 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import YouTubeEmbed from '@/components/reusable/YoutubeEmbed'
 import { stripVideoId } from '@/helpers/utils'
+export type videoIdStripped = {
+  value?: string | null
+  error?: string
+}
 
 const AddYourNoise = () => {
   const [yourNoise, setYourNoise] = useState<string>(
@@ -20,8 +24,8 @@ const AddYourNoise = () => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      const { value: videoId, error }: any = stripVideoId(yourNoise)
-      !videoId && setError(error)
+      const { value: videoId, error }: videoIdStripped = stripVideoId(yourNoise)
+      if (!videoId && error) setError(error)
       setDebouncedValue(videoId)
     }, 1000)
 

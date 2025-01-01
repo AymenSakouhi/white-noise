@@ -1,3 +1,5 @@
+import { videoIdStripped } from '@/components/AddYourNoise'
+
 export const soundsAssets = import.meta.glob('@/assets/downloads/*', {
   eager: true,
 })
@@ -12,7 +14,7 @@ export const converTime = (t: number) => {
   return formattedTime
 }
 
-export const stripVideoId = (videoString: string) => {
+export const stripVideoId = (videoString: string): videoIdStripped => {
   const ytLinkRegex = new RegExp(
     '^(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([A-Za-z0-9_-]{11})',
   )
@@ -38,6 +40,8 @@ export const stripVideoId = (videoString: string) => {
       return { value: parsedUrl.searchParams.get('v'), error: '' }
     }
   } catch (error) {
-    return { error: `issue : ${error}` }
+    return { error: `issue : ${error}`, value: '' }
   }
+
+  return { value: '', error: '' }
 }
