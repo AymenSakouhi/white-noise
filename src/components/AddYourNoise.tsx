@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import YouTubeEmbed from '@/components/reusable/YoutubeEmbed'
 import { stripVideoId } from '@/helpers/utils'
-import { useDebounce } from './reusable/useDebounce'
+import { useDebounce } from './hooks/useDebounce'
 export type videoIdStripped = {
   value?: string | null
   error?: string
