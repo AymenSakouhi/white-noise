@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 type YouTubeEmbedProps = {
-  videoId: string
+  videoId: string | undefined | null
 }
 
 const YouTubeEmbed: FC<YouTubeEmbedProps> = ({ videoId }) => {
