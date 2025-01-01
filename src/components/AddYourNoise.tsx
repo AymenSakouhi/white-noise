@@ -1,10 +1,13 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import YouTubeEmbed from '@/components/reusable/YoutubeEmbed'
-import { debounce, stripVideoId } from '@/helpers/utils'
+import { stripVideoId } from '@/helpers/utils'
+import { useDebounce } from './reusable/useDebounce'
 export type videoIdStripped = {
   value?: string | null
   error?: string
 }
+
+export type nullableString = null | undefined | string
 
 const AddYourNoise = () => {
   const [yourNoise, setYourNoise] = useState<string>(
@@ -12,26 +15,25 @@ const AddYourNoise = () => {
     // example of a youtube whitenoise video, please don't sue me
     // takeh from Cat Trumpet channel, subscribe to them if your read this
   )
-  const [debouncedValue, setDebouncedValue] = useState<
-    string | undefined | null
-  >('')
-  const [error, setError] = useState<string>('')
+  const [videoId, setvideoId] = useState<nullableString>('')
+  const debouncedValue = useDebounce({ value: yourNoise, delay: 500 })
+  const [error, setError] = useState<nullableString>('')
+
+  const handleChange = () => {
+    const { value: videoId, error }: videoIdStripped = stripVideoId(yourNoise)
+    setError(error)
+    setvideoId(videoId)
+  }
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setYourNoise(value)
   }
 
-  const debounceTimer = debounce(() => {
-    const { value: videoId, error }: videoIdStripped = stripVideoId(yourNoise)
-    if (!videoId && error) setError(error)
-    setDebouncedValue(videoId)
-    console.log(videoId)
-  }, 1000)
-
   useEffect(() => {
-    debounceTimer()
-  }, [yourNoise])
+    handleChange()
+    // eslint-disable-next-line
+  }, [debouncedValue])
 
   return (
     <div className="col-span-full w-full">
@@ -48,7 +50,7 @@ const AddYourNoise = () => {
           {error}
         </span>
       </div>
-      <YouTubeEmbed videoId={debouncedValue} />
+      <YouTubeEmbed videoId={videoId} />
     </div>
   )
 }
