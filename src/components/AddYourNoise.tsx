@@ -3,10 +3,15 @@ import YouTubeEmbed from '@/components/reusable/YoutubeEmbed'
 import { stripVideoId } from '@/helpers/utils'
 
 const AddYourNoise = () => {
-  const [yourNoise, setYourNoise] = useState<string>('')
+  const [yourNoise, setYourNoise] = useState<string>(
+    'https://www.youtube.com/watch?v=UgHKb_7884o',
+    // example of a youtube whitenoise video, please don't sue me
+    // takeh from Cat Trumpet channel, subscribe to them if your read this
+  )
   const [debouncedValue, setDebouncedValue] = useState<
     string | undefined | null
   >('')
+  const [error, setError] = useState<string>('')
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -15,7 +20,8 @@ const AddYourNoise = () => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      const videoId: string | undefined | null = stripVideoId(yourNoise)
+      const { value: videoId, error }: any = stripVideoId(yourNoise)
+      !videoId && setError(error)
       setDebouncedValue(videoId)
     }, 1000)
 
@@ -34,6 +40,11 @@ const AddYourNoise = () => {
         onBlur={handleInput}
         onChange={handleInput}
       />
+      <div>
+        <span id="errorMessage" className="text-red-300">
+          {error}
+        </span>
+      </div>
       <YouTubeEmbed videoId={debouncedValue} />
     </div>
   )
