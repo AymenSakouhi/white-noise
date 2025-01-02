@@ -9,37 +9,41 @@ enum TIMERANGES {
 }
 const Pomodoro = () => {
   const [mode, setMode] = useState(TIMERANGES.QUARTER)
-  const [timer, setTimer] = useState(TIMERANGES.QUARTER)
+  const [focusTimer, setFocusTimer] = useState(TIMERANGES.QUARTER)
   const [timerPausable, setTimerPausable] = useState<boolean>(false)
   const [breakTimer, setBreakTimer] = useState(TIMERANGES.BREAK)
   const [isActive, setIsActive] = useState(false)
-  const [activeTab, setActiveTab] = useState('focusTimer')
+  const [activeTab, setActiveTab] = useState<undefined | string>('focusTimer')
 
   useEffect(() => {
     let timerInterval: NodeJS.Timeout
-    if (isActive && timer > 0)
+    if (isActive && focusTimer > 0)
       timerInterval = setInterval(() => {
-        setTimer((prev) => prev - 1000)
+        return activeTab === 'focusTimer'
+          ? setFocusTimer((prev) => prev - 1000)
+          : setBreakTimer((prev) => prev - 1000)
       }, 1000)
 
     return () => {
       clearInterval(timerInterval)
     }
-  }, [isActive, timer])
+  }, [isActive])
 
   const handleTabChange = (e: SyntheticEvent<HTMLButtonElement>) => {
     const tabTarget = e.currentTarget?.dataset?.tabTarget
     setActiveTab(tabTarget)
+    // handleReset()
   }
 
-  const handleTimer = () => {
+  const pauseTimers = () => {
     setIsActive(!isActive)
     setTimerPausable(!timerPausable)
   }
 
   const handleReset = () => {
     setIsActive(false)
-    setTimer(mode)
+    setFocusTimer(mode)
+    setBreakTimer(TIMERANGES.BREAK)
     setTimerPausable(false)
   }
   return (
@@ -77,7 +81,7 @@ const Pomodoro = () => {
               id="focusTimer"
               className={`text-9xl text-white bg-teal-600 ${activeTab === 'breakTimer' && 'hidden'}`}
             >
-              {converTime(timer)}
+              {converTime(focusTimer)}
             </div>
           </section>
           <section>
@@ -92,7 +96,7 @@ const Pomodoro = () => {
         <div className="flex flex-row gap-2">
           <button
             onClick={() => {
-              handleTimer()
+              pauseTimers()
             }}
           >
             {!isActive ? 'Start' : 'Pause'}
