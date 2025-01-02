@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, SyntheticEvent } from 'react'
 import { converTime } from '@/helpers/utils'
 
 enum TIMERANGES {
+  BREAK = 5 * 60 * 1000,
   QUARTER = 15 * 60 * 1000,
   HALF = 30 * 60 * 1000,
   HOUR = 60 * 60 * 1000,
@@ -10,8 +11,9 @@ const Pomodoro = () => {
   const [mode, setMode] = useState(TIMERANGES.QUARTER)
   const [timer, setTimer] = useState(TIMERANGES.QUARTER)
   const [timerPausable, setTimerPausable] = useState<boolean>(false)
-  const [breakTimer, setBreakTimer] = useState(TIMERANGES.QUARTER)
+  const [breakTimer, setBreakTimer] = useState(TIMERANGES.BREAK)
   const [isActive, setIsActive] = useState(false)
+  const [activeTab, setActiveTab] = useState('focusTimer')
 
   useEffect(() => {
     let timerInterval: NodeJS.Timeout
@@ -24,6 +26,11 @@ const Pomodoro = () => {
       clearInterval(timerInterval)
     }
   }, [isActive, timer])
+
+  const handleTabChange = (e: SyntheticEvent<HTMLButtonElement>) => {
+    const tabTarget = e.currentTarget?.dataset?.tabTarget
+    setActiveTab(tabTarget)
+  }
 
   const handleTimer = () => {
     setIsActive(!isActive)
@@ -38,18 +45,47 @@ const Pomodoro = () => {
   return (
     <>
       <div className="col-span-full flex flex-col items-center justify-center">
+        <div
+          className="flex justify-center items-center space-x-2 my-2"
+          data-tabs="tabs"
+          role="list"
+        >
+          <button
+            className="tabs p-2 border-2 border-sky-50"
+            id="focusTab"
+            data-tab-target="focusTimer"
+            role="tab"
+            aria-selected="true"
+            onClick={handleTabChange}
+          >
+            Focus
+          </button>
+          <button
+            className="tabs p-2 border-2 border-sky-50"
+            id="BreakTab"
+            data-tab-target="breakTimer"
+            role="tab"
+            aria-selected="false"
+            onClick={handleTabChange}
+          >
+            Break
+          </button>
+        </div>
         <div>
-          <div className="flex justify-center items-center space-x-2">
-            <button className="tabs" id="focusTab">
-              Focus
-            </button>
-            <button className="tabs" id="BreakTab">
-              Break
-            </button>
-          </div>
           <section>
-            <div id="timer" className="text-9xl text-white bg-teal-600">
+            <div
+              id="focusTimer"
+              className={`text-9xl text-white bg-teal-600 ${activeTab === 'breakTimer' && 'hidden'}`}
+            >
               {converTime(timer)}
+            </div>
+          </section>
+          <section>
+            <div
+              id="breakTimer"
+              className={`text-9xl text-white bg-teal-600 ${activeTab === 'focusTimer' && 'hidden'}`}
+            >
+              {converTime(breakTimer)}
             </div>
           </section>
         </div>
