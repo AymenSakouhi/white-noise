@@ -8,6 +8,7 @@ enum TIMERANGES {
   HOUR = 60 * 60 * 1000,
 }
 const Pomodoro = () => {
+  // eslint-disable-next-line
   const [mode, setMode] = useState(TIMERANGES.QUARTER)
   const [focusTimer, setFocusTimer] = useState(TIMERANGES.QUARTER)
   const [timerPausable, setTimerPausable] = useState<boolean>(false)
