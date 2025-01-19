@@ -14,7 +14,8 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **Preloaded White Noise Tracks**: Offer a variety of built-in white noise options such as rain, forest, and ocean sounds.
 - [ ] **Adjustable Volume Controls**: Separate sliders for controlling white noise and any additional sounds.
 - [x] **Timer Functionality**: Pomodoro timer to manage study sessions effectively.
-- [x] **Minimalist Design**: A clean and distraction-free user interface.
+- [ ] **Minimalist Design**: A clean and distraction-free user interface.
+- [ ] **Try shiny text from ReactBits**
 
 ### Customization Options
 

@@ -12,7 +12,7 @@ const YouTubeEmbed: FC<YouTubeEmbedProps> = ({ videoId }) => {
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying)
   }
-
+  // a value that doesnt re-render your app
   const timevideoPassed: number = useMemo(
     () => videoPLayTime.current,
     // eslint-disable-next-line

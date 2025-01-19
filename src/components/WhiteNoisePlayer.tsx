@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { IconType } from 'react-icons'
+import { Button } from './ui/button'
 
 type WhiteNoiseProps = {
   path: string
@@ -24,12 +25,12 @@ const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title, Icon }) => {
         <div className="text-zinc-200 text-2xl text-ellipsis">{title}</div>
         <Icon color={'gold'} size={40} />
         <div>
-          <button
+          <Button
             className="bg-gray-300 hover:text-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
             onClick={togglePlay}
           >
             {isPlaying ? 'Pause' : 'Play'}
-          </button>
+          </Button>
           <audio ref={audioRef} loop>
             <source src={path} type="audio/mpeg" />
             Your browser does not support the audio element.
