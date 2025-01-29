@@ -7,8 +7,8 @@ import GoogleSignIn from '@/components/reusable/GoogleSignIn'
 import Pomodoro from '@/components/Pomodoro'
 import AddYourNoise from './components/AddYourNoise'
 
-// eslint-disable-next-line
 const whiteNoisesArr =
+  // eslint-disable-next-line
   Object.entries(soundsAssets)?.map(([path, module]) => {
     return {
       title: path?.split('/')?.pop()?.split('.')?.shift() || '',
