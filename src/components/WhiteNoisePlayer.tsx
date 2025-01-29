@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { IconType } from 'react-icons'
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
 
 type WhiteNoiseProps = {
   path: string

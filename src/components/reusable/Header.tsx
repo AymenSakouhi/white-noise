@@ -1,6 +1,8 @@
 import { auth } from '@/firebase'
 import { useAuth } from '../AuthContext'
 import { signOut } from 'firebase/auth'
+import { BiLogOut } from 'react-icons/bi'
+import { MdDarkMode } from 'react-icons/md'
 
 const Header = () => {
   const currentUser = useAuth()
@@ -18,24 +20,35 @@ const Header = () => {
 
       {/* Navigation */}
       <nav className="hidden md:flex space-x-6">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Contact</a>
-      </nav>
-
-      <div>
-        {/* Logout session */}
-
-        <a
-          onClick={() => {
-            signOut(auth)
-          }}
-          className="cursor-pointer text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
-        >
-          {currentUser ? 'Log Out' : 'Log In'}
+        <a href="#" className="text-gray-300">
+          Home
         </a>
-      </div>
+        <a href="#" className="text-gray-300">
+          About
+        </a>
+        <a href="#" className="text-gray-300">
+          Services
+        </a>
+        <a href="#" className="text-gray-300">
+          Contact
+        </a>
+      </nav>
+      {/* Logout session */}
+      <button
+        className="bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
+        onClick={() => {
+          signOut(auth)
+        }}
+      >
+        {currentUser ? 'Log Out' : 'Log In'}
+        <BiLogOut />
+      </button>
+      <button
+        className="bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
+        aria-label="Toggle-Dark-Mode"
+      >
+        <MdDarkMode />
+      </button>
     </header>
   )
 }
