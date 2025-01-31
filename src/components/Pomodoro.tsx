@@ -56,7 +56,7 @@ const Pomodoro = () => {
           role="list"
         >
           <button
-            className="tabs p-2 border-2 border-sky-50"
+            className="tabs p-2 border-2 border-sky-50 text-slate-200"
             id="focusTab"
             data-tab-target="focusTimer"
             role="tab"
@@ -66,7 +66,7 @@ const Pomodoro = () => {
             Focus
           </button>
           <button
-            className="tabs p-2 border-2 border-sky-50"
+            className="tabs p-2 border-2 border-sky-50 text-slate-200"
             id="BreakTab"
             data-tab-target="breakTimer"
             role="tab"
@@ -96,6 +96,7 @@ const Pomodoro = () => {
         </div>
         <div className="flex flex-row gap-2">
           <button
+            className="text-slate-200"
             onClick={() => {
               pauseTimers()
             }}
@@ -103,7 +104,11 @@ const Pomodoro = () => {
             {!isActive ? 'Start' : 'Pause'}
           </button>
 
-          <button disabled={!isActive && timerPausable} onClick={handleReset}>
+          <button
+            className="text-slate-200"
+            disabled={!isActive && timerPausable}
+            onClick={handleReset}
+          >
             Reset
           </button>
         </div>

@@ -2,7 +2,6 @@ import { auth } from '@/firebase'
 import { useAuth } from '../AuthContext'
 import { signOut } from 'firebase/auth'
 import { BiLogOut } from 'react-icons/bi'
-import { MdDarkMode } from 'react-icons/md'
 
 const Header = () => {
   const currentUser = useAuth()
