@@ -2,6 +2,7 @@ import { auth } from '@/firebase'
 import { useAuth } from '../AuthContext'
 import { signOut } from 'firebase/auth'
 import { BiLogOut } from 'react-icons/bi'
+import { Link } from '@tanstack/react-router'
 
 const Header = () => {
   const currentUser = useAuth()
@@ -17,18 +18,18 @@ const Header = () => {
         </div>
         {/* Navigation */}
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-300">
+          <Link to="/" className="text-gray-300">
             Home
-          </a>
-          <a href="#" className="text-gray-300">
+          </Link>
+          <Link to="/about" className="text-gray-300">
             About
-          </a>
-          <a href="#" className="text-gray-300">
+          </Link>
+          <Link to="#" className="text-gray-300">
             Services
-          </a>
-          <a href="#" className="text-gray-300">
+          </Link>
+          <Link to="#" className="text-gray-300">
             Contact
-          </a>
+          </Link>
         </nav>
         {/* Logout session */}
         <button
