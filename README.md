@@ -15,7 +15,8 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [ ] **Adjustable Volume Controls**: Separate sliders for controlling white noise and any additional sounds.
 - [x] **Timer Functionality**: Pomodoro timer to manage study sessions effectively.
 - [x] **Minimalist Design**: A clean and distraction-free user interface.
-- [ ] **Try shiny text from ReactBits**
+- [x] **Try shiny text from ReactBits**
+- [x] **Added Tanstack Router**
 - [ ] **Adding Redux toolkit**
 - [ ] **Search Input for voices**
 - [ ] **Add a KanbanBoard**

@@ -32,7 +32,7 @@ const Header = () => {
         </nav>
         {/* Logout session */}
         <button
-          className="bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
+          className="flex items-center justify-center gap-1 bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
           onClick={() => {
             signOut(auth)
           }}
@@ -40,12 +40,6 @@ const Header = () => {
           {currentUser ? 'Log Out' : 'Log In'}
           <BiLogOut />
         </button>
-        {/* <button
-          className="bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
-          aria-label="Toggle-Dark-Mode"
-          >
-          <MdDarkMode />
-          </button> */}
       </div>
     </header>
   )
