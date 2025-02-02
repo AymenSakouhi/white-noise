@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { IconType } from 'react-icons'
 import { Button } from '@/components/ui/button'
+import { IoPlayCircleOutline, IoPause } from 'react-icons/io5'
 
 type WhiteNoiseProps = {
   path: string
@@ -29,7 +30,17 @@ const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title, Icon }) => {
             className="bg-gray-300 hover:text-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
             onClick={togglePlay}
           >
-            {isPlaying ? 'Pause' : 'Play'}
+            {isPlaying ? (
+              <>
+                <IoPause className="inline-block" />
+                <span>Pause</span>
+              </>
+            ) : (
+              <>
+                <IoPlayCircleOutline className="inline-block" />
+                <span>Play</span>
+              </>
+            )}
           </Button>
           <audio ref={audioRef} loop>
             <source src={path} type="audio/mpeg" />
