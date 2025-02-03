@@ -2,7 +2,7 @@ import { auth } from '@/firebase'
 import { useAuth } from '../AuthContext'
 import { signOut } from 'firebase/auth'
 import { BiLogOut } from 'react-icons/bi'
-import { MdDarkMode } from 'react-icons/md'
+import { Link } from '@tanstack/react-router'
 
 const Header = () => {
   const currentUser = useAuth()
@@ -18,22 +18,22 @@ const Header = () => {
         </div>
         {/* Navigation */}
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-300">
+          <Link to="/" className="text-gray-300">
             Home
-          </a>
-          <a href="#" className="text-gray-300">
+          </Link>
+          <Link to="/about" className="text-gray-300">
             About
-          </a>
-          <a href="#" className="text-gray-300">
+          </Link>
+          <Link to="#" className="text-gray-300">
             Services
-          </a>
-          <a href="#" className="text-gray-300">
+          </Link>
+          <Link to="#" className="text-gray-300">
             Contact
-          </a>
+          </Link>
         </nav>
         {/* Logout session */}
         <button
-          className="bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
+          className="flex items-center justify-center gap-1 bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
           onClick={() => {
             signOut(auth)
           }}
@@ -41,12 +41,6 @@ const Header = () => {
           {currentUser ? 'Log Out' : 'Log In'}
           <BiLogOut />
         </button>
-        {/* <button
-          className="bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
-          aria-label="Toggle-Dark-Mode"
-          >
-          <MdDarkMode />
-          </button> */}
       </div>
     </header>
   )

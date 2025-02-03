@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",
+    "@tanstack/react-router": "^1.99.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.1.0",
@@ -24,6 +25,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@tanstack/router-devtools": "^1.99.0",
+    "@tanstack/router-plugin": "^1.99.0",
     "@types/firebase": "^2.4.32",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
