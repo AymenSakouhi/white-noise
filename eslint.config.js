@@ -26,6 +26,7 @@ export default tseslint.config(
       ],
       'react/no-escaped-entities': 'off',
       'react/prop-types': 'off',
+      'no-console': 'error',
     },
   },
   prettier,
