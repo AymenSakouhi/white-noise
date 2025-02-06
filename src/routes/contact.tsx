@@ -8,6 +8,8 @@ export const Route = createFileRoute('/contact')({
 
 type Values = {
   firstName: string
+  secondName: string
+  email: string
 }
 
 function Contact() {
@@ -17,13 +19,16 @@ function Contact() {
         <Formik
           initialValues={{
             firstName: '',
+            secondName: '',
+            email: '',
           }}
           onSubmit={(
             values: Values,
             { setSubmitting }: FormikHelpers<Values>,
           ) => {
             setTimeout(() => {
-              alert(values.firstName)
+              alert(JSON.stringify(values, null, 2))
+              // to mock a state change
               setSubmitting(false)
             }, 1000)
           }}
@@ -31,6 +36,10 @@ function Contact() {
           <Form>
             <label htmlFor="firstName">First Name</label>
             <Field id="firstName" name="firstName" placeholder="John" />
+            <label htmlFor="secondName">Second Name</label>
+            <Field id="secondName" name="secondName" placeholder="Smith" />
+            <label htmlFor="email">First Name</label>
+            <Field id="email" name="email" placeholder="John@123.com" />
             <button type="submit">send</button>
           </Form>
         </Formik>
