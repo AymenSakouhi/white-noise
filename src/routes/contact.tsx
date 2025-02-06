@@ -1,16 +1,24 @@
-import Layout from '@/components/reusable/Layout'
-import { createFileRoute } from '@tanstack/react-router'
+import { z } from 'zod'
+import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Field, Form, Formik, FormikHelpers } from 'formik'
+import { createFileRoute } from '@tanstack/react-router'
+
+import Layout from '@/components/reusable/Layout'
 
 export const Route = createFileRoute('/contact')({
   component: Contact,
 })
 
-type Values = {
-  firstName: string
-  secondName: string
-  email: string
-}
+const schema = z.object({
+  firstName: z.string().min(1, { message: 'This field has to be filled.' }),
+  secondName: z.string().min(1, { message: 'This field has to be filled.' }),
+  email: z
+    .string()
+    .min(1, { message: 'This field has to be filled.' })
+    .email('This is not a valid email.'),
+})
+
+type schemaType = z.infer<typeof schema>
 
 function Contact() {
   return (
@@ -22,9 +30,10 @@ function Contact() {
             secondName: '',
             email: '',
           }}
+          validationSchema={toFormikValidationSchema(schema)}
           onSubmit={(
-            values: Values,
-            { setSubmitting }: FormikHelpers<Values>,
+            values: schemaType,
+            { setSubmitting }: FormikHelpers<schemaType>,
           ) => {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2))
