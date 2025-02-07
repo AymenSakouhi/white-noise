@@ -17,6 +17,7 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **Minimalist Design**: A clean and distraction-free user interface.
 - [x] **Try shiny text from ReactBits**
 - [x] **Added Tanstack Router**
+- [x] **Adding formik + zod**
 - [ ] **Adding Redux toolkit**
 - [ ] **Search Input for voices**
 - [ ] **Add a KanbanBoard**
