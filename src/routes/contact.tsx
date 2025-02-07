@@ -1,24 +1,15 @@
-import { z } from 'zod'
 import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { Field, Form, Formik, FormikHelpers } from 'formik'
+import { Field, Form, Formik, FormikHelpers, ErrorMessage } from 'formik'
 import { createFileRoute } from '@tanstack/react-router'
 
 import Layout from '@/components/reusable/Layout'
+import { Button } from '@/components/ui/button'
+import { contactSchema } from '@/schemas'
+import { ContactSchemaType } from '@/types'
 
 export const Route = createFileRoute('/contact')({
   component: Contact,
 })
-
-const schema = z.object({
-  firstName: z.string().min(1, { message: 'This field has to be filled.' }),
-  secondName: z.string().min(1, { message: 'This field has to be filled.' }),
-  email: z
-    .string()
-    .min(1, { message: 'This field has to be filled.' })
-    .email('This is not a valid email.'),
-})
-
-type schemaType = z.infer<typeof schema>
 
 function Contact() {
   return (
@@ -29,12 +20,14 @@ function Contact() {
             firstName: '',
             secondName: '',
             email: '',
+            message: '',
           }}
-          validationSchema={toFormikValidationSchema(schema)}
+          validationSchema={toFormikValidationSchema(contactSchema)}
           onSubmit={(
-            values: schemaType,
-            { setSubmitting }: FormikHelpers<schemaType>,
+            values: ContactSchemaType,
+            { setSubmitting }: FormikHelpers<ContactSchemaType>,
           ) => {
+            console.log(values)
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2))
               // to mock a state change
@@ -45,11 +38,38 @@ function Contact() {
           <Form>
             <label htmlFor="firstName">First Name</label>
             <Field id="firstName" name="firstName" placeholder="John" />
+            <ErrorMessage
+              name="firstName"
+              component="div"
+              className="text-red-500 text-sm"
+            />
             <label htmlFor="secondName">Second Name</label>
             <Field id="secondName" name="secondName" placeholder="Smith" />
-            <label htmlFor="email">First Name</label>
+            <ErrorMessage
+              name="secondName"
+              component="div"
+              className="text-red-500 text-sm"
+            />
+            <label htmlFor="email">email</label>
             <Field id="email" name="email" placeholder="John@123.com" />
-            <button type="submit">send</button>
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="text-red-500 text-sm"
+            />
+            <label htmlFor="message">Message</label>
+            <Field
+              id="message"
+              name="message"
+              placeholder="Your message"
+              as="textarea"
+            />
+            <ErrorMessage
+              name="message"
+              component="div"
+              className="text-red-500 text-sm"
+            />
+            <Button type="submit">send</Button>
           </Form>
         </Formik>
       </div>
