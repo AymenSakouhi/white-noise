@@ -27,7 +27,6 @@ function Contact() {
             values: ContactSchemaType,
             { setSubmitting }: FormikHelpers<ContactSchemaType>,
           ) => {
-            console.log(values)
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2))
               // to mock a state change

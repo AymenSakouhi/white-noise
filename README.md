@@ -19,9 +19,12 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **Added Tanstack Router**
 - [x] **Adding formik + zod**
 - [x] **Adding a fuzzy finder**
+- [x] **Adding small backend**
+- [ ] **add module-aliases**
+- [ ] **Routing + MVC approach**
 - [ ] **learn/check knex.js as a query builder for lightweight proxies**
-- [ ] **Adding Redux toolkit**
-- [ ] **Search Input for voices**
+- [ ] **Adding Zustand**
+- [x] **Search Input for voices**
 - [ ] **Add a KanbanBoard**
 
 ### Customization Options
