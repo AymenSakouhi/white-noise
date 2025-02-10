@@ -20,8 +20,8 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **Adding formik + zod**
 - [x] **Adding a fuzzy finder**
 - [x] **Adding small backend**
-- [ ] **add module-aliases**
-- [ ] **Routing + MVC approach**
+- [x] **add module-aliases**
+- [x] **Routing + MVC approach**
 - [ ] **learn/check knex.js as a query builder for lightweight proxies**
 - [ ] **Adding Zustand**
 - [x] **Search Input for voices**

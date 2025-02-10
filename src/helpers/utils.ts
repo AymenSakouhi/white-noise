@@ -16,6 +16,7 @@ export const converTime = (t: number) => {
 
 export const stripVideoId = (videoString: string): videoIdStripped => {
   const ytLinkRegex = new RegExp(
+    // made by chatgpt
     '^(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([A-Za-z0-9_-]{11})',
   )
 
