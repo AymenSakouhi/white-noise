@@ -1,7 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react'
+// react-icons below
 import { BsSoundwave } from 'react-icons/bs'
+import { IconType } from 'react-icons'
 
-import Layout from './components/reusable/Layout'
+import Layout from '@/components/reusable/Layout'
 import WhiteNoisePlayer from '@/components/WhiteNoisePlayer'
 import { soundsAssets } from '@/helpers/utils'
 import { useAuth } from '@/components/AuthContext'
@@ -9,7 +11,7 @@ import GoogleSignIn from '@/components/reusable/GoogleSignIn'
 import Pomodoro from '@/components/Pomodoro'
 import AddYourNoise from '@/components/AddYourNoise'
 import { useDebounce } from '@/components/hooks/useDebounce'
-import { IconType } from 'react-icons'
+import { Input } from '@/components/ui/input'
 
 type Noise = {
   title: string
@@ -63,14 +65,15 @@ function App() {
           <div className="col-span-full text-sky-200 text-2xl text-center">
             Choose your best combination
           </div>
-          <div>
-            <input
+          <div className="col-span-full">
+            <Input
+              className="text-white"
               type="text"
               value={searchValue}
               placeholder="Search your noises"
               onChange={handleInput}
               onBlur={handleInput}
-            ></input>
+            />
           </div>
           {whiteNoiseArr &&
             whiteNoiseArr?.map((_) => (
