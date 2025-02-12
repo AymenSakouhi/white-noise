@@ -33,25 +33,18 @@ function App() {
   const currentUser = useAuth()
   // white noises part
   const [searchValue, setSearchValue] = useState<string>('')
-  const [whiteNoiseArr, setWhiteNoiseArr] = useState<Noise[]>(whiteNoiseBlobs)
+  // const [whiteNoiseArr, setWhiteNoiseArr] = useState<Noise[]>(whiteNoiseBlobs)
   const debouncedValue = useDebounce({
     value: searchValue,
     delay: 500,
   })
-
-  useEffect(() => {
-    // search out input
-    if (!debouncedValue) {
-      setWhiteNoiseArr(whiteNoiseBlobs)
-      return
-    }
-    setWhiteNoiseArr(
-      whiteNoiseArr?.filter((noise: Noise) =>
+  // changing to derived value because we can filter directly on blobs
+  // shout out to TIM for solution
+  const whiteNoiseArr: Noise[] = debouncedValue
+    ? whiteNoiseBlobs?.filter((noise: Noise) =>
         noise?.title?.includes(debouncedValue?.toString()),
-      ),
-    )
-    // eslint-disable-next-line
-  }, [debouncedValue])
+      )
+    : whiteNoiseBlobs
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
