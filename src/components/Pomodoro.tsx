@@ -1,4 +1,7 @@
 import { useState, useEffect, SyntheticEvent } from 'react'
+import { Button } from '@/components/ui/button'
+import Timer from '@/components/reusable/Timer/'
+
 import { converTime } from '@/helpers/utils'
 
 enum TIMERANGES {
@@ -55,8 +58,8 @@ const Pomodoro = () => {
           data-tabs="tabs"
           role="list"
         >
-          <button
-            className="tabs p-2 border-2 border-sky-50 text-slate-200"
+          <Button
+            className="tabs bg-white text-gray-700 p-2 hover:bg-blend-darken hover:text-white"
             id="focusTab"
             data-tab-target="focusTimer"
             role="tab"
@@ -64,9 +67,9 @@ const Pomodoro = () => {
             onClick={handleTabChange}
           >
             Focus
-          </button>
-          <button
-            className="tabs p-2 border-2 border-sky-50 text-slate-200"
+          </Button>
+          <Button
+            className="tabs bg-white text-gray-700 p-2 hover:bg-blend-darken hover:text-white"
             id="BreakTab"
             data-tab-target="breakTimer"
             role="tab"
@@ -74,43 +77,43 @@ const Pomodoro = () => {
             onClick={handleTabChange}
           >
             Break
-          </button>
+          </Button>
         </div>
-        <div>
+        <div className="w-full px-12">
           <section>
             <div
               id="focusTimer"
-              className={`text-9xl text-white bg-teal-600 ${activeTab === 'breakTimer' && 'hidden'}`}
+              className={`${activeTab === 'breakTimer' && 'hidden'}`}
             >
-              {converTime(focusTimer)}
+              <Timer timer={converTime(focusTimer)} />
             </div>
           </section>
           <section>
             <div
               id="breakTimer"
-              className={`text-9xl text-white bg-teal-600 ${activeTab === 'focusTimer' && 'hidden'}`}
+              className={`${activeTab === 'focusTimer' && 'hidden'}`}
             >
-              {converTime(breakTimer)}
+              <Timer timer={converTime(breakTimer)} />
             </div>
           </section>
         </div>
         <div className="flex flex-row gap-2">
-          <button
+          <Button
             className="text-slate-200"
             onClick={() => {
               pauseTimers()
             }}
           >
             {!isActive ? 'Start' : 'Pause'}
-          </button>
+          </Button>
 
-          <button
+          <Button
             className="text-slate-200"
             disabled={!isActive && timerPausable}
             onClick={handleReset}
           >
             Reset
-          </button>
+          </Button>
         </div>
       </div>
     </>
