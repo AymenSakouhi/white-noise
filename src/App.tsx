@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 // react-icons below
 import { BsSoundwave } from 'react-icons/bs'
 import { IconType } from 'react-icons'
@@ -68,17 +68,12 @@ function App() {
               onBlur={handleInput}
             />
           </div>
-          {whiteNoiseArr &&
-            whiteNoiseArr?.map((_) => (
-              <WhiteNoisePlayer
-                key={_.path}
-                {...{
-                  title: _.title,
-                  path: _.path,
-                  Icon: _.Icon,
-                }}
-              />
-            ))}
+          <div className="col-span-full max-h-[400px] overflow-y-auto p-4 bg-gray-100 rounded-lg shadow-lg">
+            {whiteNoiseArr &&
+              whiteNoiseArr?.map((_) => (
+                <WhiteNoisePlayer key={_.path} title={_.title} path={_.path} />
+              ))}
+          </div>
           <AddYourNoise />
         </Layout>
       ) : (
