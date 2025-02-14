@@ -23,6 +23,8 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **add module-aliases**
 - [x] **Routing + MVC approach**
 - [x] **Search Input for voices**
+- [x] **set his own metronome in the app**
+- [ ] **get some new noises (specially farm)**
 - [ ] **Add a database where you can store your own whitenoises**
 - [ ] **learn/check knex.js as a query builder for lightweight proxies**
 - [ ] **Adding Zustand**
