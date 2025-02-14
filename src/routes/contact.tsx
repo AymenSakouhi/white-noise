@@ -10,7 +10,7 @@ import { ContactSchemaType } from '@/types'
 export const Route = createFileRoute('/contact')({
   component: Contact,
 })
-
+//TODO switch to react-hook-form
 function Contact() {
   return (
     <Layout>

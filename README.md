@@ -12,7 +12,7 @@ Below is a list of features for the app. Checkboxes are included to track the im
 
 - [x] **Add Custom White Noise**: Users can upload and use their own white noise files instead of the default ones.
 - [x] **Preloaded White Noise Tracks**: Offer a variety of built-in white noise options such as rain, forest, and ocean sounds.
-- [ ] **Adjustable Volume Controls**: Separate sliders for controlling white noise and any additional sounds.
+- [x] **Adjustable Volume Controls**: Separate sliders for controlling white noise and any additional sounds.
 - [x] **Timer Functionality**: Pomodoro timer to manage study sessions effectively.
 - [x] **Minimalist Design**: A clean and distraction-free user interface.
 - [x] **Try shiny text from ReactBits**
@@ -22,9 +22,10 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **Adding small backend**
 - [x] **add module-aliases**
 - [x] **Routing + MVC approach**
+- [x] **Search Input for voices**
+- [ ] **Add a database where you can store your own whitenoises**
 - [ ] **learn/check knex.js as a query builder for lightweight proxies**
 - [ ] **Adding Zustand**
-- [x] **Search Input for voices**
 - [ ] **Add a KanbanBoard**
 
 ### Customization Options
