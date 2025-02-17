@@ -32,7 +32,7 @@ export const createUserAsync = async (userDetails: USER_DETAILS) => {
       email,
     }),
   })
-  const result = await response.json()
+  const result = (await response.json()) || []
 
   return result
 }

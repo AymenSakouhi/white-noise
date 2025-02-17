@@ -23,6 +23,9 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **add module-aliases**
 - [x] **Routing + MVC approach**
 - [x] **Search Input for voices**
+- [x] **set passportjs**
+- [ ] **delete firebase**
+- [ ] **check MDN status codes**
 - [ ] **set his own metronome in the app**
 - [ ] **small to do app with zustand**
 - [ ] **get some new noises (specially farm)**
@@ -30,6 +33,7 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [ ] **learn/check knex.js as a query builder for lightweight proxies**
 - [ ] **Adding Zustand**
 - [ ] **Add a KanbanBoard**
+- [ ] **Change the UI**
 
 ### Customization Options
 

@@ -2,6 +2,7 @@ import 'module-alias/register'
 import express, { Express } from 'express'
 import cors from 'cors'
 import 'dotenv/config'
+import '@src/config/passport'
 import morgan from 'morgan'
 
 import { routes } from '@src/routes/route'
