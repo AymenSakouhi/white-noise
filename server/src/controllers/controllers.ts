@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import prisma, { queryAndDisconnet } from '@src/db/init'
+import prisma, { queryAndDisconnect } from '@src/db/init'
 import bcrypt from 'bcryptjs'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
@@ -11,7 +11,7 @@ export const checkSanity = (req: Request, res: Response) => {
 }
 
 export const userRegister = (req: Request, res: Response) => {
-  queryAndDisconnet(async () => {
+  queryAndDisconnect(async () => {
     const { name, email, password } = req.body
     try {
       const existingUser = await prisma.user.findUnique({
@@ -42,7 +42,7 @@ export const userRegister = (req: Request, res: Response) => {
 }
 
 export const userLogin = (req: Request, res: Response) => {
-  queryAndDisconnet(async () => {
+  queryAndDisconnect(async () => {
     const { email, password } = req.body
     try {
       const user = await prisma.user.findUnique({

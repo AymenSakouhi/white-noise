@@ -4,7 +4,7 @@ export const prisma = new PrismaClient()
 
 // type QueryFunc = Promise<void>
 
-export const queryAndDisconnet = (queryFn: any) => {
+export const queryAndDisconnect = (queryFn: any) => {
   queryFn.catch((e: unknown) => {
     //eslint-disable-next-line
     console.error(e instanceof Error ? e.message : 'unknown error')

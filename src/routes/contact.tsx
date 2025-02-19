@@ -1,4 +1,10 @@
+//to replace formik with React hook form
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+// get rid of the next line
 import { toFormikValidationSchema } from 'zod-formik-adapter'
+// get rid of formik
 import { Field, Form, Formik, FormikHelpers, ErrorMessage } from 'formik'
 import { createFileRoute } from '@tanstack/react-router'
 
@@ -10,67 +16,68 @@ import { ContactSchemaType } from '@/types'
 export const Route = createFileRoute('/contact')({
   component: Contact,
 })
-//TODO switch to react-hook-form
+
 function Contact() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ContactSchemaType>({
+    resolver: zodResolver(contactSchema),
+  })
+
+  const onSubmit = (data: ContactSchemaType) => {
+    alert(JSON.stringify(data, null, 2))
+  }
   return (
     <Layout>
       <div className="p-2">
-        <Formik
-          initialValues={{
-            firstName: '',
-            secondName: '',
-            email: '',
-            message: '',
-          }}
-          validationSchema={toFormikValidationSchema(contactSchema)}
-          onSubmit={(
-            values: ContactSchemaType,
-            { setSubmitting }: FormikHelpers<ContactSchemaType>,
-          ) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2))
-              // to mock a state change
-              setSubmitting(false)
-            }, 1000)
-          }}
-        >
-          <Form>
-            <label htmlFor="firstName">First Name</label>
-            <Field id="firstName" name="firstName" placeholder="John" />
-            <ErrorMessage
-              name="firstName"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-            <label htmlFor="secondName">Second Name</label>
-            <Field id="secondName" name="secondName" placeholder="Smith" />
-            <ErrorMessage
-              name="secondName"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-            <label htmlFor="email">email</label>
-            <Field id="email" name="email" placeholder="John@123.com" />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-            <label htmlFor="message">Message</label>
-            <Field
-              id="message"
-              name="message"
-              placeholder="Your message"
-              as="textarea"
-            />
-            <ErrorMessage
-              name="message"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-            <Button type="submit">send</Button>
-          </Form>
-        </Formik>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text"
+            {...register('firstName')}
+            id="firstName"
+            name="firstName"
+            placeholder="John"
+          />
+          {errors?.firstName?.message && (
+            <p className="text-red-700 mb-4">{errors.firstName?.message}</p>
+          )}
+          <label htmlFor="secondName">Second Name</label>
+          <input
+            {...register('secondName')}
+            type="text"
+            id="secondName"
+            name="secondName"
+            placeholder="Smith"
+          />
+          {errors?.secondName?.message && (
+            <p className="text-red-700 mb-4">{errors.secondName?.message}</p>
+          )}
+          <label htmlFor="email">email</label>
+          <input
+            {...register('email')}
+            type="email"
+            id="email"
+            name="email"
+            placeholder="John@123.com"
+          />
+          {errors?.email?.message && (
+            <p className="text-red-700 mb-4">{errors.email?.message}</p>
+          )}
+          <label htmlFor="message">Message</label>
+          <textarea
+            {...register('message')}
+            id="message"
+            name="message"
+            placeholder="Your message"
+          />
+          {errors?.message?.message && (
+            <p className="text-red-700 mb-4">{errors.message?.message}</p>
+          )}
+          <Button type="submit">send</Button>
+        </form>
       </div>
     </Layout>
   )

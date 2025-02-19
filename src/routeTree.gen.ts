@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ServicesImport } from './routes/services'
+import { Route as RegisterImport } from './routes/register'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
@@ -21,6 +22,12 @@ import { Route as IndexImport } from './routes/index'
 const ServicesRoute = ServicesImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RegisterRoute = RegisterImport.update({
+  id: '/register',
+  path: '/register',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,6 +74,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactImport
       parentRoute: typeof rootRoute
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterImport
+      parentRoute: typeof rootRoute
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -83,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/register': typeof RegisterRoute
   '/services': typeof ServicesRoute
 }
 
@@ -90,6 +105,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/register': typeof RegisterRoute
   '/services': typeof ServicesRoute
 }
 
@@ -98,15 +114,16 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/register': typeof RegisterRoute
   '/services': typeof ServicesRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/services'
+  fullPaths: '/' | '/about' | '/contact' | '/register' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/services'
-  id: '__root__' | '/' | '/about' | '/contact' | '/services'
+  to: '/' | '/about' | '/contact' | '/register' | '/services'
+  id: '__root__' | '/' | '/about' | '/contact' | '/register' | '/services'
   fileRoutesById: FileRoutesById
 }
 
@@ -114,6 +131,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  RegisterRoute: typeof RegisterRoute
   ServicesRoute: typeof ServicesRoute
 }
 
@@ -121,6 +139,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  RegisterRoute: RegisterRoute,
   ServicesRoute: ServicesRoute,
 }
 
@@ -137,6 +156,7 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/contact",
+        "/register",
         "/services"
       ]
     },
@@ -148,6 +168,9 @@ export const routeTree = rootRoute
     },
     "/contact": {
       "filePath": "contact.tsx"
+    },
+    "/register": {
+      "filePath": "register.tsx"
     },
     "/services": {
       "filePath": "services.tsx"

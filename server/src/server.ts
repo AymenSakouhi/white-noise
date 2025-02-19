@@ -6,7 +6,6 @@ import '@src/config/passport'
 import morgan from 'morgan'
 
 import { routes } from '@src/routes/route'
-
 const app: Express = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
