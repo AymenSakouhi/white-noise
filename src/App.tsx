@@ -33,7 +33,7 @@ const whiteNoiseBlobs =
 
 const App = () => {
   const { isLoading } = useQuery({
-    queryFn: () => sanityCheck(),
+    queryFn: sanityCheck,
     queryKey: ['sanity'],
     staleTime: 24 * 60 * 60 * 1000,
   })
