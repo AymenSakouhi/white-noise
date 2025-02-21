@@ -13,6 +13,9 @@ import AddYourNoise from '@/components/AddYourNoise'
 import { useDebounce } from '@/components/hooks/useDebounce'
 import { Input } from '@/components/ui/input'
 
+import { sanityCheck } from '@/api/general'
+import { useQuery } from '@tanstack/react-query'
+
 type Noise = {
   title: string
   Icon: IconType
@@ -28,7 +31,12 @@ const whiteNoiseBlobs =
     }
   }) || []
 
-function App() {
+const App = () => {
+  const { isLoading } = useQuery({
+    queryFn: () => sanityCheck(),
+    queryKey: ['sanity'],
+    staleTime: 24 * 60 * 60 * 1000,
+  })
   // firebase part
   const currentUser = useAuth()
   // white noises part
@@ -49,6 +57,8 @@ function App() {
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
   }
+
+  if (isLoading) return <div>Loading</div>
 
   return (
     <>

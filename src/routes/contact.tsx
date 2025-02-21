@@ -1,11 +1,6 @@
-//to replace formik with React hook form
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-// get rid of the next line
-import { toFormikValidationSchema } from 'zod-formik-adapter'
-// get rid of formik
-import { Field, Form, Formik, FormikHelpers, ErrorMessage } from 'formik'
 import { createFileRoute } from '@tanstack/react-router'
 
 import Layout from '@/components/reusable/Layout'
