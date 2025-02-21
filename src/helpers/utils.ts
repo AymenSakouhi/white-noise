@@ -4,7 +4,7 @@ export const soundsAssets = import.meta.glob('@/assets/downloads/*', {
   eager: true,
 })
 
-export const converTime = (t: number) => {
+export const converTime = (t: number): string => {
   const timestamp = new Date(t)
   const minutes = timestamp.getMinutes()
   const seconds = timestamp.getSeconds()
@@ -16,6 +16,7 @@ export const converTime = (t: number) => {
 
 export const stripVideoId = (videoString: string): videoIdStripped => {
   const ytLinkRegex = new RegExp(
+    // made by chatgpt
     '^(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([A-Za-z0-9_-]{11})',
   )
 
@@ -45,3 +46,7 @@ export const stripVideoId = (videoString: string): videoIdStripped => {
 
   return { value: '', error: '' }
 }
+
+/* const fuzzyFind = (noises, target) => {
+
+} */

@@ -1,7 +1,8 @@
 import { useState, useEffect, ChangeEvent } from 'react'
+import { Input } from '@/components/ui/input'
 import YouTubeEmbed from '@/components/reusable/YoutubeEmbed'
 import { stripVideoId } from '@/helpers/utils'
-import { useDebounce } from './hooks/useDebounce'
+import { useDebounce } from '@/components/hooks/useDebounce'
 export type videoIdStripped = {
   value?: string | null
   error?: string
@@ -37,9 +38,9 @@ const AddYourNoise = () => {
 
   return (
     <div className="col-span-full w-full">
-      <input
+      <Input
         type="text"
-        className="w-full"
+        className="w-full text-white"
         placeholder="Place here your favorite whitenoise track from youtube"
         value={yourNoise}
         onBlur={handleInput}

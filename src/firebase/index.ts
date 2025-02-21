@@ -4,6 +4,7 @@ import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 // TODO: Add SDKs for Firebase products that you want to use
+//TODO delete this ASAAAAAAAAAAAAP
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -20,6 +21,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
+// eslint-disable-next-line  @typescript-eslint/no-unused-vars
 const analytics = getAnalytics(app)
 
 export const auth = getAuth(app)

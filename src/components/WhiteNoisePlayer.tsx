@@ -1,53 +1,36 @@
-import { useState, useRef } from 'react'
+import 'react-h5-audio-player/lib/styles.css'
+
+import AudioPLayer from 'react-h5-audio-player'
 import { IconType } from 'react-icons'
-import { Button } from '@/components/ui/button'
-import { IoPlayCircleOutline, IoPause } from 'react-icons/io5'
 
 type WhiteNoiseProps = {
   path: string
   title: string
-  Icon: IconType
+  Icon?: IconType
 }
-const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title, Icon }) => {
-  const [isPlaying, setisPlaying] = useState(false)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-  const togglePlay = () => {
-    if (isPlaying) {
-      audioRef.current?.pause()
-    } else {
-      audioRef?.current?.play()
-    }
-    setisPlaying(!isPlaying)
-  }
-
+const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title }) => {
   return (
-    <div>
-      <div className="my-2 flex flex-col items-center justify-center gap-1">
-        <div className="text-zinc-200 text-2xl text-ellipsis">{title}</div>
-        <Icon color={'gold'} size={40} />
-        <div>
-          <Button
-            className="bg-gray-300 hover:text-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
-            onClick={togglePlay}
-          >
-            {isPlaying ? (
-              <>
-                <IoPause className="inline-block" />
-                <span>Pause</span>
-              </>
-            ) : (
-              <>
-                <IoPlayCircleOutline className="inline-block" />
-                <span>Play</span>
-              </>
-            )}
-          </Button>
-          <audio ref={audioRef} loop>
-            <source src={path} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
-        </div>
+    <div className="flex items-center gap-4 p-3 bg-white rounded-lg shadow-md">
+      <img
+        src="https://placebear.com/300/300"
+        alt="bear placeholder image"
+        className="w-12 h-12 rounded-lg object-cover"
+      />
+      <div className="flex-1">
+        <div className="text-lg font-semibold text-gray-800">{title}</div>
       </div>
+      <AudioPLayer
+        className="w-full mt-2"
+        layout="stacked"
+        showJumpControls={true}
+        autoPlay={false}
+        src={path}
+        onPlay={() => {
+          // shout out to Fira for the props lesson
+          //eslint-disable-next-line
+          console.log('wassup player')
+        }}
+      />
     </div>
   )
 }

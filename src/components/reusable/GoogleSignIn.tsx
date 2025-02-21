@@ -7,8 +7,10 @@ const GoogleSignIn = () => {
     try {
       const result = await signInWithPopup(auth, provider)
       const user = result.user
+      // eslint-disable-next-line
       console.log('user info', user)
     } catch (error) {
+      // eslint-disable-next-line
       console.error('Error during google sign in', error)
     }
   }
