@@ -37,8 +37,9 @@ export const login = async (userDetails: Omit<USER_DETAILS, 'name'>) => {
       password,
     }),
   })
-  localStorage.setItem('token', res?.token)
-  return res
+  const json = await res.json()
+  localStorage.setItem('token', json.token)
+  return json
 }
 
 export const getProfile = async () => {
@@ -48,5 +49,7 @@ export const getProfile = async () => {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
   })
-  return res
+
+  const json = await res.json()
+  return json
 }

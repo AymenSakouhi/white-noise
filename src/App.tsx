@@ -15,6 +15,8 @@ import { Input } from '@/components/ui/input'
 
 import { sanityCheck } from '@/api/general'
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
+import { getProfile } from './api/user'
 
 type Noise = {
   title: string
@@ -37,8 +39,9 @@ const App = () => {
     queryKey: ['sanity'],
     staleTime: 24 * 60 * 60 * 1000,
   })
-  // firebase part
-  const currentUser = useAuth()
+
+  const navigate = useNavigate()
+
   // white noises part
   const [searchValue, setSearchValue] = useState<string>('')
   // const [whiteNoiseArr, setWhiteNoiseArr] = useState<Noise[]>(whiteNoiseBlobs)
@@ -58,39 +61,42 @@ const App = () => {
     setSearchValue(e.target.value)
   }
 
+  // User Profile
+  const currentUser = useAuth()
+
   if (isLoading) return <div>Loading</div>
 
-  return (
-    <>
-      {currentUser ? (
-        <Layout>
-          <Pomodoro />
-          <div className="col-span-full text-sky-200 text-2xl text-center">
-            Choose your best combination
-          </div>
-          <div className="col-span-full">
-            <Input
-              className="text-white"
-              type="text"
-              value={searchValue}
-              placeholder="Search your noises"
-              onChange={handleInput}
-              onBlur={handleInput}
-            />
-          </div>
-          <div className="col-span-full max-h-[400px] overflow-y-auto p-4 bg-gray-100 rounded-lg shadow-lg">
-            {whiteNoiseArr &&
-              whiteNoiseArr?.map((_) => (
-                <WhiteNoisePlayer key={_.path} title={_.title} path={_.path} />
-              ))}
-          </div>
-          <AddYourNoise />
-        </Layout>
-      ) : (
-        <GoogleSignIn />
-      )}
-    </>
-  )
+  if (currentUser) {
+    return (
+      <Layout>
+        <Pomodoro />
+        <div className="col-span-full text-sky-200 text-2xl text-center">
+          Choose your best combination
+        </div>
+        <div className="col-span-full">
+          <Input
+            className="text-white"
+            type="text"
+            value={searchValue}
+            placeholder="Search your noises"
+            onChange={handleInput}
+            onBlur={handleInput}
+          />
+        </div>
+        <div className="col-span-full max-h-[400px] overflow-y-auto p-4 bg-gray-100 rounded-lg shadow-lg">
+          {whiteNoiseArr &&
+            whiteNoiseArr?.map((_) => (
+              <WhiteNoisePlayer key={_.path} title={_.title} path={_.path} />
+            ))}
+        </div>
+        <AddYourNoise />
+      </Layout>
+    )
+  }
+
+  navigate({
+    to: '/login',
+  })
 }
 
 export default App

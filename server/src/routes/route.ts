@@ -4,7 +4,9 @@ import {
   checkSanity,
   userRegister,
   userLogin,
+  // userLogout,
   userAuthenticate,
+  userAuthenticateMiddleWare,
 } from '@src/controllers/controllers'
 
 export const routes = Router()
@@ -12,5 +14,6 @@ export const routes = Router()
 routes.get('/status', checkSanity)
 routes.post('/register', userRegister)
 routes.post('/login', userLogin)
+// routes.post('/logout', userLogout)
 // protected profile route
-routes.post('/profile', userAuthenticate)
+routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)

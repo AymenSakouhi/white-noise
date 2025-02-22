@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import prisma, { queryAndDisconnect } from '@src/db/init'
 import bcrypt from 'bcryptjs'
 import passport from 'passport'
@@ -71,14 +71,22 @@ export const userLogin = (req: Request, res: Response) => {
   })
 }
 
-export const userAuthenticate = () => {
-  return passport.authenticate(
-    'jwt',
-    { session: false },
-    async (req: Request, res: Response) => {
-      res.status(201).json({
-        user: req.user,
-      })
-    },
-  )
+export const userLogout = (req: Request, res: Response) => {}
+
+// Middleware for authentication
+export const userAuthenticateMiddleWare = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    if (err) return next(err)
+    if (!user) return res.status(401).json({ message: 'Unauthorized' })
+    req.user = user // Attach user to request
+    next() // Proceed to the next middleware or controller
+  })(req, res, next) // Call the function with req, res, next
+}
+
+export const userAuthenticate = (req: Request, res: Response) => {
+  res.json({ user: req.user })
 }
