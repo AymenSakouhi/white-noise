@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn } from '@/lib/utils'
-import { Link, Navigate, useNavigate } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 
 import { useMutation } from '@tanstack/react-query'
 import { register as registerApi } from '@/api/user'
@@ -21,7 +20,6 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 
 const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
-  className,
   ...props
 }) => {
   const {
@@ -54,7 +52,7 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
 
   return (
     <div>
-      <div className={cn('flex flex-col gap-6', className)} {...props}>
+      <div className="flex flex-col gap-6" {...props}>
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl">Login</CardTitle>

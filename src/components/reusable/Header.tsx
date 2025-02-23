@@ -1,11 +1,15 @@
-import { auth } from '@/firebase'
 import { useAuth } from '../AuthContext'
-import { signOut } from 'firebase/auth'
 import { BiLogOut } from 'react-icons/bi'
 import { Link } from '@tanstack/react-router'
+import { useMutation } from '@tanstack/react-query'
+import { logout } from '@/api/user'
 
 const Header = () => {
   const currentUser = useAuth()
+
+  const mutation = useMutation({
+    mutationFn: logout,
+  })
 
   return (
     <header className="bg-gray-900 text-gray-100">
@@ -35,7 +39,8 @@ const Header = () => {
         <button
           className="flex items-center justify-center gap-1 bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
           onClick={() => {
-            signOut(auth)
+            // signOut(auth)
+            mutation.mutate()
           }}
         >
           {currentUser ? 'Log Out' : 'Log In'}
