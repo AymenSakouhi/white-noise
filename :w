@@ -115,11 +115,14 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
                 <Button type="submit" className="w-full">
                   Sign up
                 </Button>
+                {/*                   <Button variant="outline" className="w-full">
+                  Login with Google
+                  </Button> */}
               </div>
               <div className="mt-4 text-center text-sm">
                 Have an account?{' '}
-                <Link to="/login" className="underline underline-offset-4">
-                  login
+                <Link href="#" className="underline underline-offset-4">
+                  register
                 </Link>
               </div>
             </form>

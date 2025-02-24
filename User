@@ -1,0 +1,30 @@
+psql
+clear
+exit
+plsql
+exit
+\q
+SELECT * from 
+show db
+\t
+\d
+\l+
+show databases
+\l+
+exit
+\q
+\t+
+\t
+clear
+exit
+exit
+\q
+\d
+\q
+\q
+\q
+\d
+\q
+\d
+show User
+\s User

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from '@/lib/utils'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { login } from '@/api/user'
 import { loginSchema } from '@/schemas/login'
 import { loginSchemaType } from '@/types'
@@ -25,7 +25,7 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
   ...props
 }) => {
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
+  // const queryClient = useQueryClient()
 
   const {
     register,
@@ -39,13 +39,6 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
     mutationFn: (data: loginSchemaType) => {
       const { email, password } = data
       return login({ email, password })
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['user'])
-      // console.log("success")
-      navigate({
-        to: '/',
-      })
     },
   })
   const onSubmit = (data: loginSchemaType) => {
@@ -106,9 +99,6 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
                 <Button type="submit" className="w-full">
                   Login
                 </Button>
-                {/*                   <Button variant="outline" className="w-full">
-                  Login with Google
-                  </Button> */}
               </div>
               <div className="mt-4 text-center text-sm">
                 Don't have an account?{' '}

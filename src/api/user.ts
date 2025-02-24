@@ -62,5 +62,6 @@ export const logout = async () => {
   })
   await result.json()
   localStorage.removeItem('token')
+  // redirection
   window.location.href = '/login'
 }
