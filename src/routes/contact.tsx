@@ -21,9 +21,10 @@ function Contact() {
     resolver: zodResolver(contactSchema),
   })
 
-  const onSubmit = (data: ContactSchemaType) => {
+  /* const onSubmit = (data: ContactSchemaType) => {
     console.log(data)
-  }
+  } */
+
   return (
     <Layout>
       <div className="p-2">

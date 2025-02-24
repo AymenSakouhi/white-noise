@@ -7,7 +7,6 @@ import Layout from '@/components/reusable/Layout'
 import WhiteNoisePlayer from '@/components/WhiteNoisePlayer'
 import { soundsAssets } from '@/helpers/utils'
 import { useAuth } from '@/components/AuthContext'
-import GoogleSignIn from '@/components/reusable/GoogleSignIn'
 import Pomodoro from '@/components/Pomodoro'
 import AddYourNoise from '@/components/AddYourNoise'
 import { useDebounce } from '@/components/hooks/useDebounce'
@@ -16,7 +15,6 @@ import { Input } from '@/components/ui/input'
 import { sanityCheck } from '@/api/general'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { getProfile } from './api/user'
 
 type Noise = {
   title: string

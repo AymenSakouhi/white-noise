@@ -3,7 +3,6 @@ import prisma, { queryAndDisconnect } from '@src/db/init'
 import bcrypt from 'bcryptjs'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
-import { ErrorInfo } from 'react'
 
 export const checkSanity = (req: Request, res: Response) => {
   res.status(200).json({
@@ -127,7 +126,6 @@ export const userLogout = (req: Request, res: Response) => {
   }
   // unique values only
   tokenBlacklist.add(token)
-  console.log('adding token', tokenBlacklist)
   // 100% we have a token
   res.status(200).json({ message: 'user logged off correctly!' })
 }
