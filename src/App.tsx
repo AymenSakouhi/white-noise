@@ -8,7 +8,6 @@ import WhiteNoisePlayer from '@/components/WhiteNoisePlayer'
 import { soundsAssets } from '@/helpers/utils'
 import { useAuth } from '@/components/AuthContext'
 import Pomodoro from '@/components/Pomodoro'
-import Tabs from '@/components/reusable/Tabs'
 import AddYourNoise from '@/components/AddYourNoise'
 import { useDebounce } from '@/components/hooks/useDebounce'
 import { Input } from '@/components/ui/input'
@@ -72,9 +71,9 @@ const App = () => {
         <div className="col-span-full text-sky-200 text-2xl text-center">
           Choose your best combination
         </div>
-        <div className="col-span-full">
+        <div className="col-span-full flex flex-col items-center justify-center mt-4">
           <Input
-            className="text-white"
+            className="text-gray-200 w-1/2 bg-slate-700/80"
             type="text"
             value={searchValue}
             placeholder="Search your noises"
@@ -82,7 +81,7 @@ const App = () => {
             onBlur={handleInput}
           />
         </div>
-        <div className="col-span-full max-h-[400px] overflow-y-auto p-4 bg-gray-100 rounded-lg shadow-lg">
+        <div className="grid sm:grid-cols-1 md:grid-cols-3 w-screen p-4 rounded-lg shadow-lg">
           {whiteNoiseArr &&
             whiteNoiseArr?.map((_) => (
               <WhiteNoisePlayer key={_.path} title={_.title} path={_.path} />

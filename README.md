@@ -24,7 +24,8 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **Routing + MVC approach**
 - [x] **Search Input for voices**
 - [x] **set passportjs**
-- [ ] **delete firebase**
+- [x] **delete firebase**
+- [ ] **Add some tailwindcss to the components**
 - [ ] **check MDN status codes**
 - [ ] **set his own metronome in the app**
 - [ ] **small to do app with zustand**
