@@ -21,9 +21,10 @@ function Contact() {
     resolver: zodResolver(contactSchema),
   })
 
-  /* const onSubmit = (data: ContactSchemaType) => {
-    console.log(data)
-  } */
+  const onSubmit = (data: ContactSchemaType) => {
+    //TODO create an api to store contact forms in the backend
+    // console.log(data)
+  }
 
   return (
     <Layout>
