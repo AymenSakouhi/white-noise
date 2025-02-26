@@ -37,16 +37,31 @@ export const login = async (userDetails: Omit<USER_DETAILS, 'name'>) => {
       password,
     }),
   })
-  localStorage.setItem('token', res?.token)
-  return res
+  const json = await res.json()
+  localStorage.setItem('token', json.token)
+  return json
 }
 
 export const getProfile = async () => {
   const token = localStorage.getItem('token')
-  // eslint-disable-next-line
-  const res: any = await fetch(`/api/profile`, {
+
+  const res = await fetch(`/api/profile`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
   })
-  return res
+
+  const json = await res.json()
+  return json
+}
+
+export const logout = async () => {
+  const token = localStorage.getItem('token')
+  const result = await fetch('/api/logout', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  await result.json()
+  localStorage.removeItem('token')
+  // redirection
+  window.location.href = '/login'
 }

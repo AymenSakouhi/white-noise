@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import Layout from '@/components/reusable/Layout'
+import RegisterForm from '@/components/reusable/RegisterForm'
 
 export const Route = createFileRoute('/register')({
   component: RouteComponent,
@@ -7,8 +7,12 @@ export const Route = createFileRoute('/register')({
 
 function RouteComponent() {
   return (
-    <Layout>
-      <div className="p-2">Hello world</div>
-    </Layout>
+    <div>
+      <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+        <div className="w-full max-w-sm">
+          <RegisterForm />
+        </div>
+      </div>
+    </div>
   )
 }

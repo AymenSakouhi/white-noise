@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import prisma, { queryAndDisconnect } from '@src/db/init'
 import bcrypt from 'bcryptjs'
 import passport from 'passport'
@@ -59,7 +59,7 @@ export const userLogin = (req: Request, res: Response) => {
       }
       const payload = { id: user.id, email: user.email }
       const token = jwt.sign(payload, process.env.JWT_TOKEN as string, {
-        expiresIn: '1h',
+        expiresIn: '4h',
       })
       res.status(201).json({ token })
     } catch (error) {
@@ -70,15 +70,62 @@ export const userLogin = (req: Request, res: Response) => {
     }
   })
 }
+// black list to store tokens
+const tokenBlacklist = new Set<string>()
 
-export const userAuthenticate = () => {
-  return passport.authenticate(
+// Middleware for authentication
+export const userAuthenticateMiddleWare = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  passport.authenticate(
     'jwt',
     { session: false },
-    async (req: Request, res: Response) => {
-      res.status(201).json({
-        user: req.user,
-      })
+    (err: Error, user: Record<string, string>) => {
+      if (err) return next(err)
+      if (!user) return res.status(401).json({ message: 'Unauthorized' })
+
+      req.user = user // Attach user to request
+      next() // Proceed to the next middleware or controller
     },
-  )
+  )(req, res, next) // Call the function with req, res, next
+}
+
+export const userAuthenticate = (req: Request, res: Response) => {
+  const token = req.headers?.authorization?.split(' ')[1] as string
+  if (token && tokenBlacklist.has(token)) {
+    res.status(401).json({
+      message: 'Token expired, please login again',
+    })
+  }
+  res.status(200).json({ user: req.user })
+}
+
+export const checkBlacklist = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const token = req.headers.authorization!.split(' ')[1]
+  if (token && tokenBlacklist.has(token)) {
+    res.status(401).json({
+      message: 'Token expired, please login again',
+    })
+  }
+  next()
+}
+
+export const userLogout = (req: Request, res: Response) => {
+  const token = req.headers.authorization!.split(' ')[1]
+  if (!token) {
+    res.status(400).json({
+      message: 'No token, what is happening dude',
+    })
+    return
+  }
+  // unique values only
+  tokenBlacklist.add(token)
+  // 100% we have a token
+  res.status(200).json({ message: 'user logged off correctly!' })
 }

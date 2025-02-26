@@ -2,6 +2,7 @@ import 'react-h5-audio-player/lib/styles.css'
 
 import AudioPLayer from 'react-h5-audio-player'
 import { IconType } from 'react-icons'
+import { useState } from 'react'
 
 type WhiteNoiseProps = {
   path: string
@@ -9,28 +10,30 @@ type WhiteNoiseProps = {
   Icon?: IconType
 }
 const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title }) => {
+  const [isPlaying, setIsPlaying] = useState(false)
+
   return (
-    <div className="flex items-center gap-4 p-3 bg-white rounded-lg shadow-md">
-      <img
-        src="https://placebear.com/300/300"
-        alt="bear placeholder image"
-        className="w-12 h-12 rounded-lg object-cover"
-      />
-      <div className="flex-1">
-        <div className="text-lg font-semibold text-gray-800">{title}</div>
+    <div className="gap-4 p-4">
+      <div
+        className={`w-full max-w-md mx-auto p-4 ${isPlaying ? 'bg-emerald-700' : 'bg-slate-700'} rounded-2xl shadow-lg`}
+      >
+        <h2 className="text-white text-center text-lg font-semibold mb-2">
+          {title}
+        </h2>
+        <AudioPLayer
+          className="w-full border border-gray-700 rounded-lg"
+          layout="stacked"
+          showJumpControls={true}
+          autoPlay={false}
+          src={path}
+          onPlay={() => {
+            setIsPlaying(!isPlaying)
+          }}
+          onPause={() => {
+            setIsPlaying(!isPlaying)
+          }}
+        />
       </div>
-      <AudioPLayer
-        className="w-full mt-2"
-        layout="stacked"
-        showJumpControls={true}
-        autoPlay={false}
-        src={path}
-        onPlay={() => {
-          // shout out to Fira for the props lesson
-          //eslint-disable-next-line
-          console.log('wassup player')
-        }}
-      />
     </div>
   )
 }

@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn } from '@/lib/utils'
+import { Link } from '@tanstack/react-router'
 
 import { useMutation } from '@tanstack/react-query'
-import { login } from '@/api/user'
-import { loginSchema } from '@/schemas/login'
-import { loginSchemaType } from '@/types'
+import { register as registerApi } from '@/api/user'
+import { registerSchema } from '@/schemas/register'
+import { registerSchemaType } from '@/types'
 
 import {
   Card,
@@ -18,49 +18,65 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { Link, useNavigate } from '@tanstack/react-router'
 
-const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
-  className,
+const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
   ...props
 }) => {
-  const navigate = useNavigate()
-  // const queryClient = useQueryClient()
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginSchemaType>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<registerSchemaType>({
+    resolver: zodResolver(registerSchema),
     mode: 'onBlur',
   })
+
+  // const navigate = useNavigate()
+
   const mutation = useMutation({
-    mutationFn: (data: loginSchemaType) => {
-      const { email, password } = data
-      return login({ email, password })
+    mutationFn: (data: registerSchemaType) => {
+      const { name, email, password } = data
+      return registerApi({ name, email, password })
+    },
+    onSuccess: () => {
+      // queryClient.invalidateQueries(['user'])
+      // console.log("success")
     },
   })
-  const onSubmit = (data: loginSchemaType) => {
+  const onSubmit = (data: registerSchemaType) => {
     mutation.mutate(data)
-    navigate({
-      to: '/',
-    })
+    /* navigate({
+      to: '/login',
+    }) */
+    window.location.href = '/login'
   }
 
   return (
     <div>
-      <div className={cn('flex flex-col gap-6', className)} {...props}>
+      <div className="flex flex-col gap-6" {...props}>
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardTitle className="text-2xl">Register</CardTitle>
             <CardDescription>
-              Enter your email below to login to your account
+              Enter your email below to make an account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-6">
+                <div className="grid gap-2">
+                  <Label htmlFor="name">name</Label>
+                  <Input
+                    id="name"
+                    {...register('name')}
+                    type="name"
+                    placeholder="John"
+                    required
+                  />
+                  {errors?.name?.message && (
+                    <p className="text-red-700 mb-4">{errors.name?.message}</p>
+                  )}
+                </div>
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
@@ -97,13 +113,13 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
                   )}
                 </div>
                 <Button type="submit" className="w-full">
-                  Login
+                  Sign up
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
-                Don't have an account?{' '}
-                <Link to="/register" className="underline underline-offset-4">
-                  Sign up
+                Have an account?{' '}
+                <Link to="/login" className="underline underline-offset-4">
+                  login
                 </Link>
               </div>
             </form>
@@ -114,4 +130,4 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
   )
 }
 
-export default LoginForm
+export default RegisterForm

@@ -24,8 +24,10 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **Routing + MVC approach**
 - [x] **Search Input for voices**
 - [x] **set passportjs**
-- [ ] **delete firebase**
-- [ ] **check MDN status codes**
+- [x] **delete firebase**
+- [x] **Add some tailwindcss to the timer component**
+- [x] **check MDN status codes**
+- [ ] **To do lists with some routes in the backendk **
 - [ ] **set his own metronome in the app**
 - [ ] **small to do app with zustand**
 - [ ] **get some new noises (specially farm)**

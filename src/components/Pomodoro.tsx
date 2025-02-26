@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import Timer from '@/components/reusable/Timer/'
 
 import { converTime } from '@/helpers/utils'
+import { ListRestartIcon, PauseIcon, PlayIcon } from 'lucide-react'
 
 enum TIMERANGES {
   BREAK = 5 * 60 * 1000,
@@ -12,8 +13,8 @@ enum TIMERANGES {
 }
 const Pomodoro = () => {
   // eslint-disable-next-line
-  const [mode, setMode] = useState(TIMERANGES.QUARTER)
-  const [focusTimer, setFocusTimer] = useState(TIMERANGES.QUARTER)
+  const [mode, setMode] = useState(TIMERANGES.HALF)
+  const [focusTimer, setFocusTimer] = useState(TIMERANGES.HALF)
   const [timerPausable, setTimerPausable] = useState<boolean>(false)
   const [breakTimer, setBreakTimer] = useState(TIMERANGES.BREAK)
   const [isActive, setIsActive] = useState(false)
@@ -54,12 +55,12 @@ const Pomodoro = () => {
     <>
       <div className="col-span-full flex flex-col items-center justify-center">
         <div
-          className="flex justify-center items-center space-x-2 my-2"
+          className="flex justify-center rounded-full items-center space-x-4 my-4 py-2 px-2 border-2 border-slate-700"
           data-tabs="tabs"
           role="list"
         >
           <Button
-            className="tabs bg-white text-gray-700 p-2 hover:bg-blend-darken hover:text-white"
+            className={`tabs ${activeTab === 'focusTimer' ? 'bg-white text-sky-500 hover:bg-red-50' : 'bg-gray-50/10 text-white/10'} p-2 rounded-full`}
             id="focusTab"
             data-tab-target="focusTimer"
             role="tab"
@@ -69,7 +70,7 @@ const Pomodoro = () => {
             Focus
           </Button>
           <Button
-            className="tabs bg-white text-gray-700 p-2 hover:bg-blend-darken hover:text-white"
+            className={`tabs ${activeTab === 'breakTimer' ? 'bg-white text-sky-500 hover:bg-red-50' : 'bg-gray-50/10 text-white/10'} p-2 rounded-full`}
             id="BreakTab"
             data-tab-target="breakTimer"
             role="tab"
@@ -97,14 +98,22 @@ const Pomodoro = () => {
             </div>
           </section>
         </div>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row gap-2 my-4">
           <Button
             className="text-slate-200"
             onClick={() => {
               pauseTimers()
             }}
           >
-            {!isActive ? 'Start' : 'Pause'}
+            {!isActive ? (
+              <span className="flex items-center justify-center p-2 gap-2">
+                Start <PlayIcon />{' '}
+              </span>
+            ) : (
+              <span className="flex items-center justify-center p-2 gap-2">
+                Pause <PauseIcon />{' '}
+              </span>
+            )}
           </Button>
 
           <Button
@@ -112,7 +121,9 @@ const Pomodoro = () => {
             disabled={!isActive && timerPausable}
             onClick={handleReset}
           >
-            Reset
+            <span className="flex items-center justify-center p-2 gap-2">
+              Reset <ListRestartIcon />{' '}
+            </span>
           </Button>
         </div>
       </div>

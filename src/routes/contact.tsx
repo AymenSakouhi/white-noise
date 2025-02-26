@@ -5,7 +5,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import Layout from '@/components/reusable/Layout'
 import { Button } from '@/components/ui/button'
-import { contactSchema } from '@/schemas'
+import { contactSchema } from '@/schemas/contact'
 import { ContactSchemaType } from '@/types'
 
 export const Route = createFileRoute('/contact')({
@@ -22,8 +22,10 @@ function Contact() {
   })
 
   const onSubmit = (data: ContactSchemaType) => {
-    alert(JSON.stringify(data, null, 2))
+    //TODO create an api to store contact forms in the backend
+    // console.log(data)
   }
+
   return (
     <Layout>
       <div className="p-2">
