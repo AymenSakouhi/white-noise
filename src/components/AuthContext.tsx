@@ -11,6 +11,7 @@ import {
 
 import { useQuery } from '@tanstack/react-query'
 import { getProfile } from '@/api/user'
+import { User } from '@/types'
 
 const AuthContext = createContext(null)
 
@@ -19,7 +20,7 @@ type AuthProviderProps = {
 }
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState<User | undefined>()
   const { data, isLoading } = useQuery({
     queryFn: getProfile,
     queryKey: ['user'],
