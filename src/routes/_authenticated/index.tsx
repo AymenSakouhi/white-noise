@@ -9,7 +9,6 @@ import { IconType } from 'react-icons'
 import Layout from '@/components/reusable/Layout'
 import WhiteNoisePlayer from '@/components/WhiteNoisePlayer'
 import { soundsAssets } from '@/helpers/utils'
-import { useAuth } from '@/components/AuthContext'
 import Pomodoro from '@/components/Pomodoro'
 import AddYourNoise from '@/components/AddYourNoise'
 import { useDebounce } from '@/components/hooks/useDebounce'
@@ -17,7 +16,6 @@ import { Input } from '@/components/ui/input'
 
 import { sanityCheck } from '@/api/general'
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
 
 type Noise = {
   title: string
@@ -34,7 +32,7 @@ const whiteNoiseBlobs =
     }
   }) || []
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/_authenticated/')({
   component: Index,
 })
 
