@@ -45,8 +45,6 @@ export default function Index() {
     staleTime: 24 * 60 * 60 * 1000,
   })
 
-  const navigate = useNavigate()
-
   // white noises part
   const [searchValue, setSearchValue] = useState<string>('')
   // const [whiteNoiseArr, setWhiteNoiseArr] = useState<Noise[]>(whiteNoiseBlobs)
@@ -66,40 +64,31 @@ export default function Index() {
     setSearchValue(e.target.value)
   }
 
-  // User Profile
-  const currentUser = useAuth()
-
   if (isLoading) return <div>Loading</div>
 
-  if (currentUser) {
-    return (
-      <Layout>
-        <Pomodoro />
-        <div className="col-span-full text-sky-200 text-2xl text-center">
-          Choose your best combination
-        </div>
-        <div className="col-span-full flex flex-col items-center justify-center mt-4">
-          <Input
-            className="text-gray-200 w-1/2 bg-slate-700/80"
-            type="text"
-            value={searchValue}
-            placeholder="Search your noises"
-            onChange={handleInput}
-            onBlur={handleInput}
-          />
-        </div>
-        <div className="grid sm:grid-cols-1 md:grid-cols-3 w-screen p-4 rounded-lg shadow-lg">
-          {whiteNoiseArr &&
-            whiteNoiseArr?.map((_) => (
-              <WhiteNoisePlayer key={_.path} title={_.title} path={_.path} />
-            ))}
-        </div>
-        <AddYourNoise />
-      </Layout>
-    )
-  }
-
-  navigate({
-    to: '/login',
-  })
+  return (
+    <Layout>
+      <Pomodoro />
+      <div className="col-span-full text-sky-200 text-2xl text-center">
+        Choose your best combination
+      </div>
+      <div className="col-span-full flex flex-col items-center justify-center mt-4">
+        <Input
+          className="text-gray-200 w-1/2 bg-slate-700/80"
+          type="text"
+          value={searchValue}
+          placeholder="Search your noises"
+          onChange={handleInput}
+          onBlur={handleInput}
+        />
+      </div>
+      <div className="grid sm:grid-cols-1 md:grid-cols-3 w-screen p-4 rounded-lg shadow-lg">
+        {whiteNoiseArr &&
+          whiteNoiseArr?.map((_) => (
+            <WhiteNoisePlayer key={_.path} title={_.title} path={_.path} />
+          ))}
+      </div>
+      <AddYourNoise />
+    </Layout>
+  )
 }

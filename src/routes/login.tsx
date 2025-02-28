@@ -1,7 +1,20 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import LoginForm from '@/components/reusable/LoginForm'
+import { getProfile } from '@/api/user'
 
 export const Route = createFileRoute('/login')({
+  beforeLoad: async ({ context }) => {
+    const userData = await context.queryclient.fetchQuery({
+      queryFn: getProfile,
+      queryKey: ['user'],
+      staleTime: 24 * 60 * 60 * 1000,
+    })
+    if (userData) {
+      throw redirect({
+        to: '/',
+      })
+    }
+  },
   component: RouteComponent,
 })
 

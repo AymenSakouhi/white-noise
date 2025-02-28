@@ -8,6 +8,7 @@ import { User } from '@/types'
 
 const Header = () => {
   const currentUser: User = useAuth()
+  console.log('currentUser', currentUser)
 
   const mutation = useMutation({
     mutationFn: logout,
