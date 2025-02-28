@@ -1,40 +1,26 @@
 //TODO DELETE THIS ASAAAAAAAAP
-
 import {
   useContext,
-  useState,
-  useEffect,
   createContext,
   ReactNode,
   FC,
 } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
-import { getProfile } from '@/api/user'
 import { User } from '@/types'
+import { queryOpts } from '@/lib/reactQuery'
 
-const AuthContext = createContext(null)
+const AuthContext = createContext<User | null>(null)
 
 type AuthProviderProps = {
   children: ReactNode
 }
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<User | undefined>()
-  const { data, isLoading } = useQuery({
-    queryFn: getProfile,
-    queryKey: ['user'],
-    staleTime: 24 * 60 * 60 * 1000,
-  })
-
-  useEffect(() => {
-    if (data?.user) {
-      setCurrentUser(data.user)
-    }
-  }, [data])
+  const { data, isLoading } = useQuery(queryOpts.userData())
 
   return (
-    <AuthContext.Provider value={currentUser}>
+    <AuthContext.Provider value={data}>
       {!isLoading && children}
     </AuthContext.Provider>
   )

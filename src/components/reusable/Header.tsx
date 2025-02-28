@@ -7,8 +7,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { User } from '@/types'
 
 const Header = () => {
-  const currentUser: User = useAuth()
-  console.log('currentUser', currentUser)
+  const currentUser = useAuth()
 
   const mutation = useMutation({
     mutationFn: logout,

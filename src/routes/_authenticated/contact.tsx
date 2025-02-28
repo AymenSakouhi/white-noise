@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { contactSchema } from '@/schemas/contact'
 import { ContactSchemaType } from '@/types'
 
-export const Route = createFileRoute('/contact')({
+export const Route = createFileRoute('/_authenticated/contact')({
   component: Contact,
 })
 

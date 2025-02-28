@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Layout from '@/components/reusable/Layout'
 
-export const Route = createFileRoute('/about')({
+export const Route = createFileRoute('/_authenticated/about')({
   component: About,
 })
 
