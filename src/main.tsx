@@ -14,7 +14,7 @@ const router = createRouter({
   defaultPreload: 'intent',
   scrollRestoration: true,
   context: {
-    queryclient: queryClient,
+    queryClient: queryClient,
   },
 })
 

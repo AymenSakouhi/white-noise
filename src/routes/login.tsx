@@ -5,11 +5,13 @@ import { z } from 'zod'
 
 export const Route = createFileRoute('/login')({
   validateSearch: z.object({
-    redirect: z.string().optional().catch(""),
+    redirect: z.string().optional().catch(''),
   }),
   beforeLoad: async ({ context, search }) => {
     const userData = await context.queryClient.fetchQuery(queryOpts.userData())
-    if (userData) {
+    const isAuthenticated = !!userData.user
+    if (isAuthenticated) {
+      console.log('redirection happnening')
       throw redirect({ to: search.redirect || '/' })
     }
   },

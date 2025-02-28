@@ -25,7 +25,6 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
   ...props
 }) => {
   const navigate = useNavigate()
-  // const queryClient = useQueryClient()
 
   const {
     register,
@@ -40,12 +39,14 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
       const { email, password } = data
       return login({ email, password })
     },
+    onSuccess: () => {
+      navigate({
+        to: '/',
+      })
+    },
   })
   const onSubmit = (data: loginSchemaType) => {
     mutation.mutate(data)
-    navigate({
-      to: '/',
-    })
   }
 
   return (

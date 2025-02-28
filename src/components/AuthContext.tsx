@@ -1,10 +1,5 @@
 //TODO DELETE THIS ASAAAAAAAAP
-import {
-  useContext,
-  createContext,
-  ReactNode,
-  FC,
-} from 'react'
+import { useContext, createContext, ReactNode, FC } from 'react'
 
 import { useQuery } from '@tanstack/react-query'
 import { User } from '@/types'
