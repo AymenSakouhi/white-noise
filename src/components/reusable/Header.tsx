@@ -4,10 +4,9 @@ import { Link } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { logout } from '@/api/user'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { User } from '@/types'
 
 const Header = () => {
-  const currentUser = useAuth()
+  const { user } = useAuth()
 
   const mutation = useMutation({
     mutationFn: logout,
@@ -46,10 +45,10 @@ const Header = () => {
               mutation.mutate()
             }}
           >
-            {currentUser ? 'Log Out' : 'Log In'}
+            Log Out
             <BiLogOut />
           </button>
-          <span>{(currentUser && currentUser?.name) || ''}</span>
+          <span>{(user && user?.name.split(' ')[0]) || ''}</span>
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>

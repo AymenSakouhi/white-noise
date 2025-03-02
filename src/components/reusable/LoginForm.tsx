@@ -42,7 +42,7 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
     },
     onSuccess: () => {
       // should probably limit to query key 'user'
-      queryClient.invalidateQueries({queryKey: ['user']})
+      queryClient.invalidateQueries({ queryKey: ['user'] })
       navigate({
         to: '/',
       })
