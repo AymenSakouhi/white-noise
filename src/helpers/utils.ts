@@ -46,7 +46,3 @@ export const stripVideoId = (videoString: string): videoIdStripped => {
 
   return { value: '', error: '' }
 }
-
-/* const fuzzyFind = (noises, target) => {
-
-} */

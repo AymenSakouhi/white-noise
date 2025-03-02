@@ -11,20 +11,16 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ServicesImport } from './routes/services'
 import { Route as RegisterImport } from './routes/register'
 import { Route as LoginImport } from './routes/login'
-import { Route as ContactImport } from './routes/contact'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
+import { Route as NotFoundImport } from './routes/NotFound'
+import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedServicesImport } from './routes/_authenticated/services'
+import { Route as AuthenticatedContactImport } from './routes/_authenticated/contact'
+import { Route as AuthenticatedAboutImport } from './routes/_authenticated/about'
 
 // Create/Update Routes
-
-const ServicesRoute = ServicesImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const RegisterRoute = RegisterImport.update({
   id: '/register',
@@ -38,47 +34,57 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ContactRoute = ContactImport.update({
-  id: '/contact',
-  path: '/contact',
+const AuthenticatedRoute = AuthenticatedImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
+const NotFoundRoute = NotFoundImport.update({
+  id: '/NotFound',
+  path: '/NotFound',
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedServicesRoute = AuthenticatedServicesImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedContactRoute = AuthenticatedContactImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedAboutRoute = AuthenticatedAboutImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
+    '/NotFound': {
+      id: '/NotFound'
+      path: '/NotFound'
+      fullPath: '/NotFound'
+      preLoaderRoute: typeof NotFoundImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -95,78 +101,135 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterImport
       parentRoute: typeof rootRoute
     }
-    '/services': {
-      id: '/services'
+    '/_authenticated/about': {
+      id: '/_authenticated/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AuthenticatedAboutImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/contact': {
+      id: '/_authenticated/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof AuthenticatedContactImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/services': {
+      id: '/_authenticated/services'
       path: '/services'
       fullPath: '/services'
-      preLoaderRoute: typeof ServicesImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedServicesImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/': {
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexImport
+      parentRoute: typeof AuthenticatedImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedAboutRoute: typeof AuthenticatedAboutRoute
+  AuthenticatedContactRoute: typeof AuthenticatedContactRoute
+  AuthenticatedServicesRoute: typeof AuthenticatedServicesRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAboutRoute: AuthenticatedAboutRoute,
+  AuthenticatedContactRoute: AuthenticatedContactRoute,
+  AuthenticatedServicesRoute: AuthenticatedServicesRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
+  '/NotFound': typeof NotFoundRoute
+  '': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/services': typeof ServicesRoute
+  '/about': typeof AuthenticatedAboutRoute
+  '/contact': typeof AuthenticatedContactRoute
+  '/services': typeof AuthenticatedServicesRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
+  '/NotFound': typeof NotFoundRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/services': typeof ServicesRoute
+  '/about': typeof AuthenticatedAboutRoute
+  '/contact': typeof AuthenticatedContactRoute
+  '/services': typeof AuthenticatedServicesRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
+  '/NotFound': typeof NotFoundRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/services': typeof ServicesRoute
+  '/_authenticated/about': typeof AuthenticatedAboutRoute
+  '/_authenticated/contact': typeof AuthenticatedContactRoute
+  '/_authenticated/services': typeof AuthenticatedServicesRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/login' | '/register' | '/services'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/login' | '/register' | '/services'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/contact'
+  fullPaths:
+    | '/NotFound'
+    | ''
     | '/login'
     | '/register'
+    | '/about'
+    | '/contact'
     | '/services'
+    | '/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/NotFound'
+    | '/login'
+    | '/register'
+    | '/about'
+    | '/contact'
+    | '/services'
+    | '/'
+  id:
+    | '__root__'
+    | '/NotFound'
+    | '/_authenticated'
+    | '/login'
+    | '/register'
+    | '/_authenticated/about'
+    | '/_authenticated/contact'
+    | '/_authenticated/services'
+    | '/_authenticated/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  ContactRoute: typeof ContactRoute
+  NotFoundRoute: typeof NotFoundRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
-  ServicesRoute: typeof ServicesRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  ContactRoute: ContactRoute,
+  NotFoundRoute: NotFoundRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
-  ServicesRoute: ServicesRoute,
 }
 
 export const routeTree = rootRoute
@@ -179,22 +242,23 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/about",
-        "/contact",
+        "/NotFound",
+        "/_authenticated",
         "/login",
-        "/register",
-        "/services"
+        "/register"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/NotFound": {
+      "filePath": "NotFound.tsx"
     },
-    "/about": {
-      "filePath": "about.tsx"
-    },
-    "/contact": {
-      "filePath": "contact.tsx"
+    "/_authenticated": {
+      "filePath": "_authenticated.tsx",
+      "children": [
+        "/_authenticated/about",
+        "/_authenticated/contact",
+        "/_authenticated/services",
+        "/_authenticated/"
+      ]
     },
     "/login": {
       "filePath": "login.tsx"
@@ -202,8 +266,21 @@ export const routeTree = rootRoute
     "/register": {
       "filePath": "register.tsx"
     },
-    "/services": {
-      "filePath": "services.tsx"
+    "/_authenticated/about": {
+      "filePath": "_authenticated/about.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/contact": {
+      "filePath": "_authenticated/contact.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/services": {
+      "filePath": "_authenticated/services.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/": {
+      "filePath": "_authenticated/index.tsx",
+      "parent": "/_authenticated"
     }
   }
 }

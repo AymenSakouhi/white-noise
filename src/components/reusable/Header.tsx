@@ -1,11 +1,12 @@
-import { useAuth } from '../AuthContext'
+import { useAuth } from '@/components/AuthContext'
 import { BiLogOut } from 'react-icons/bi'
 import { Link } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { logout } from '@/api/user'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 
 const Header = () => {
-  const currentUser = useAuth()
+  const { user } = useAuth()
 
   const mutation = useMutation({
     mutationFn: logout,
@@ -36,16 +37,23 @@ const Header = () => {
           </Link>
         </nav>
         {/* Logout session */}
-        <button
-          className="flex items-center justify-center gap-1 bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
-          onClick={() => {
-            // signOut(auth)
-            mutation.mutate()
-          }}
-        >
-          {currentUser ? 'Log Out' : 'Log In'}
-          <BiLogOut />
-        </button>
+        <div className="flex items-center justify-center gap-3">
+          <button
+            className="flex items-center justify-center gap-2 bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
+            onClick={() => {
+              // signOut(auth)
+              mutation.mutate()
+            }}
+          >
+            Log Out
+            <BiLogOut />
+          </button>
+          <span>{(user && user?.name.split(' ')[0]) || ''}</span>
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
     </header>
   )
