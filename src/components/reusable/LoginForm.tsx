@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from '@/lib/utils'
 
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { login } from '@/api/user'
 import { loginSchema } from '@/schemas/login'
 import { loginSchemaType } from '@/types'
@@ -25,7 +25,7 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
   ...props
 }) => {
   const navigate = useNavigate()
-  // const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
   const {
     register,
@@ -40,12 +40,16 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
       const { email, password } = data
       return login({ email, password })
     },
+    onSuccess: () => {
+      // should probably limit to query key 'user'
+      queryClient.invalidateQueries({ queryKey: ['user'] })
+      navigate({
+        to: '/',
+      })
+    },
   })
   const onSubmit = (data: loginSchemaType) => {
     mutation.mutate(data)
-    navigate({
-      to: '/',
-    })
   }
 
   return (
