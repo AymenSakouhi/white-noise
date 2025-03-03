@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-// import App from '@/App'
 
-import { ChangeEvent, useState, useEffect } from 'react'
+import { ChangeEvent, useState } from 'react'
 // react-icons below
 import { BsSoundwave } from 'react-icons/bs'
 import { IconType } from 'react-icons'
@@ -29,7 +28,7 @@ type Noise = {
   isPlaying?: boolean
   isVisible?: boolean
 }
-
+//TODO change the readability of whitenoises to be coming from backend
 const whiteNoiseBlobs =
   Object.entries(soundsAssets)?.map(([path]) => {
     return {
