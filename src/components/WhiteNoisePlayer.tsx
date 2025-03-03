@@ -8,12 +8,17 @@ type WhiteNoiseProps = {
   path: string
   title: string
   Icon?: IconType
+  className?: string
 }
-const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({ path, title }) => {
+const WhiteNoisePlayer: React.FC<WhiteNoiseProps> = ({
+  path,
+  title,
+  className,
+}) => {
   const [isPlaying, setIsPlaying] = useState(false)
 
   return (
-    <div className="gap-4 p-4">
+    <div className={`${className} gap-4 p-4`}>
       <div
         className={`w-full max-w-md mx-auto p-4 ${isPlaying ? 'bg-emerald-700' : 'bg-slate-700'} rounded-2xl shadow-lg`}
       >

@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-// import App from '@/App'
 
 import { ChangeEvent, useState } from 'react'
 // react-icons below
@@ -14,21 +13,30 @@ import AddYourNoise from '@/components/AddYourNoise'
 import { useDebounce } from '@/components/hooks/useDebounce'
 import { Input } from '@/components/ui/input'
 
+import { searchSchema } from '@/schemas/searchWhiteNoise'
+import { searchSchematype } from '@/types'
+
 import { sanityCheck } from '@/api/general'
 import { useQuery } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type Noise = {
   title: string
   Icon: IconType
   path: string
+  isPlaying?: boolean
+  isVisible?: boolean
 }
-
+//TODO change the readability of whitenoises to be coming from backend
 const whiteNoiseBlobs =
   Object.entries(soundsAssets)?.map(([path]) => {
     return {
       title: path?.split('/')?.pop()?.split('.')?.shift() || '',
       Icon: BsSoundwave,
       path,
+      isVisible: true,
+      isPlaying: false,
     }
   }) || []
 
@@ -37,29 +45,36 @@ export const Route = createFileRoute('/_authenticated/')({
 })
 
 export default function Index() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce({ value: searchTerm, delay: 300 })
+
   const { isLoading } = useQuery({
     queryFn: sanityCheck,
     queryKey: ['sanity'],
     staleTime: 24 * 60 * 60 * 1000,
   })
 
-  // white noises part
-  const [searchValue, setSearchValue] = useState<string>('')
-  // const [whiteNoiseArr, setWhiteNoiseArr] = useState<Noise[]>(whiteNoiseBlobs)
-  const debouncedValue = useDebounce({
-    value: searchValue,
-    delay: 500,
+  const {
+    register,
+    formState: { errors },
+  } = useForm<searchSchematype>({
+    resolver: zodResolver(searchSchema),
+    mode: 'onTouched',
   })
-  // changing to derived value because we can filter directly on blobs
-  // shout out to TIM for solution
-  const whiteNoiseArr: Noise[] = debouncedValue
-    ? whiteNoiseBlobs?.filter((noise: Noise) =>
-        noise?.title?.includes(debouncedValue?.toString()),
-      )
+
+  const whiteNoiseArray: Noise[] = debouncedSearchTerm
+    ? whiteNoiseBlobs.map((noise: Noise) => {
+        return {
+          ...noise,
+          isVisible: !!noise.title
+            .toLowerCase()
+            .includes(debouncedSearchTerm.toString().toLowerCase()),
+        }
+      })
     : whiteNoiseBlobs
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value)
+    setSearchTerm(e.target.value)
   }
 
   if (isLoading) return <div>Loading</div>
@@ -70,21 +85,32 @@ export default function Index() {
       <div className="col-span-full text-sky-200 text-2xl text-center">
         Choose your best combination
       </div>
-      <div className="col-span-full flex flex-col items-center justify-center mt-4">
-        <Input
-          className="text-gray-200 w-1/2 bg-slate-700/80"
-          type="text"
-          value={searchValue}
-          placeholder="Search your noises"
-          onChange={handleInput}
-          onBlur={handleInput}
-        />
-      </div>
+      <form className="col-span-full">
+        <div className="w-full flex flex-col items-center justify-center mt-4">
+          <Input
+            className="text-gray-200 w-1/2 bg-slate-700/80"
+            type="text"
+            id="searchWhiteNoise"
+            {...register('searchWhiteNoise')}
+            placeholder="Search your noises"
+            onChange={handleInput}
+          />
+          {errors?.searchWhiteNoise?.message && (
+            <p className="text-red-700 mb-4">
+              {errors.searchWhiteNoise?.message}
+            </p>
+          )}
+        </div>
+      </form>
       <div className="grid sm:grid-cols-1 md:grid-cols-3 w-screen p-4 rounded-lg shadow-lg">
-        {whiteNoiseArr &&
-          whiteNoiseArr?.map((_) => (
-            <WhiteNoisePlayer key={_.path} title={_.title} path={_.path} />
-          ))}
+        {whiteNoiseArray?.map((_) => (
+          <WhiteNoisePlayer
+            key={_.path}
+            title={_.title}
+            path={_.path}
+            className={_.isVisible ? 'block' : 'hidden'}
+          />
+        ))}
       </div>
       <AddYourNoise />
     </Layout>
