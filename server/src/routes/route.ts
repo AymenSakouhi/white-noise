@@ -9,8 +9,8 @@ import {
   checkBlacklist,
   userAuthenticate,
   userAuthenticateMiddleWare,
-  addSound,
-  streamSound,
+  addNoise,
+  getNoises,
 } from '@src/controllers/controllers'
 
 // used for handling multi-part form uploads
@@ -26,5 +26,5 @@ routes.post('/logout', checkBlacklist, userLogout)
 routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)
 
 // sound routes
-routes.post('/sounds', upload.single("audio"), userAuthenticateMiddleWare, addSound)
-routes.get('/stream/:id', streamSound)
+routes.post('/noise', upload.single("audio"), userAuthenticateMiddleWare, addNoise)
+routes.get("/noise", userAuthenticateMiddleWare, getNoises)

@@ -44,10 +44,10 @@ model Category {
   updatedAt DateTime @updatedAt
 }
 
-model Sound {
+model Noise {
   id String @id @default(uuid())
   title String
-  data Bytes
+  path String
   fileType String
   icon String?
   createdAt DateTime @default(now())
