@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.0",
+    "@radix-ui/react-avatar": "^1.1.3",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.3",
@@ -40,6 +41,7 @@
     "@tanstack/eslint-plugin-query": "^5.66.1",
     "@tanstack/router-devtools": "^1.99.0",
     "@tanstack/router-plugin": "^1.99.0",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
     "@types/react": "^18.3.18",
