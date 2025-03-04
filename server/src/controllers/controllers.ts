@@ -129,3 +129,31 @@ export const userLogout = (req: Request, res: Response) => {
   // 100% we have a token
   res.status(200).json({ message: 'user logged off correctly!' })
 }
+
+export const addTodo = async (req: Request, res: Response) => {
+  const { description } = req.body
+  console.log('backend ==>', req.body, req.user)
+  const token = req.headers?.authorization?.split(' ')[1] as string
+  const user = req.user as { id: string; [key: string]: string }
+  if (token && tokenBlacklist.has(token)) {
+    res.status(403).json({
+      message: 'Token expired, relogin to be able to do todos',
+    })
+  }
+  try {
+    await prisma.todo.create({
+      data: {
+        description,
+        userId: user?.id,
+      },
+    })
+    res.status(200).json({
+      message: 'todo created',
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Issue with) creating todo',
+      error,
+    })
+  }
+}

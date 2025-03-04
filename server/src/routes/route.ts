@@ -8,6 +8,7 @@ import {
   checkBlacklist,
   userAuthenticate,
   userAuthenticateMiddleWare,
+  addTodo,
 } from '@src/controllers/controllers'
 
 export const routes = Router()
@@ -18,3 +19,6 @@ routes.post('/login', userLogin)
 routes.post('/logout', checkBlacklist, userLogout)
 // protected profile route
 routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)
+
+// todo routes
+routes.post('/todos/add', userAuthenticateMiddleWare, addTodo)
