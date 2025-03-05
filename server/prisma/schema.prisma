@@ -46,7 +46,7 @@ model Category {
 
 model Noise {
   id String @id @default(uuid())
-  title String
+  title String @unique
   path String
   fileType String
   icon String?

@@ -3,13 +3,9 @@ import prisma, { queryAndDisconnect } from '@src/db/init'
 import bcrypt from 'bcryptjs'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
-import { Noise, Status } from '@prisma/client'
-import { Readable } from 'stream'
 
-// import { supabaseStorageClient } from '@src/FileStoreClient'
 import { LocalFileStoreClient } from '@src/FileStoreClient'
-
-const localFileStoreClient = new LocalFileStoreClient("./src/assets")
+const fileStoreClient = new LocalFileStoreClient("assets")
 
 export const checkSanity = (req: Request, res: Response) => {
   res.status(200).json({
@@ -166,24 +162,35 @@ export const addNoise = async (req: AddSoundRequest, res: Response) => {
       return
     }
 
+    const existingNoise = await prisma.noise.findFirst({
+      where: {
+        title: title 
+      }
+    })
+
+    if (existingNoise !== null) {
+      res.status(400).json({
+        message: `noise already exists with ${title}`
+      })
+      return
+    }
+
     const audioData = audioFile.buffer
-    const result = await localFileStoreClient.upload("noises", title, audioData, fileType)
+    const result = await fileStoreClient.upload("noises", title, audioData, fileType)
     if (!result) {
       res.status(500).json({message: "failed to upload file"})
       return
     }
 
-    queryAndDisconnect(async () => {
-      await prisma.noise.create({
-        data: {
-          title: title,
-          fileType: fileType,
-          path: result.uri
-        }
-      })
+    const noise = await prisma.noise.create({
+      data: {
+        title: title,
+        fileType: fileType,
+        path: result.uri
+      }
     })
+    res.status(201).json({ noise, message: "uploaded noise file successfully" })
 
-    res.status(201).json({ message: "uploaded noise file successfully" })
   } catch (error) {
     console.error('Error adding noise:', error);
     res.status(500).json({ error: 'Failed to add noise.' });
@@ -199,5 +206,39 @@ export const getNoises = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error getting noises:', error);
     res.status(500).json({ error: 'Failed to get noises.' });
+  }
+}
+
+export const deleteNoise = async (req: Request, res: Response) => {
+  const { noiseKey } = req.params
+  try {
+    const noise = await prisma.noise.findFirst({
+      where: {
+        title: noiseKey
+      }
+    })
+
+    if (!noise) {
+      console.log(`Noise with key ${noiseKey} not found`)
+      res.send(404).json({
+        message: `Noise with key ${noiseKey} not found`
+      })
+      return
+    }
+
+    queryAndDisconnect(async () => {
+      const result = await prisma.noise.delete({
+        where: {
+          id: noise.id
+        }
+      })
+    })
+
+    fileStoreClient.delete("noises", noiseKey)
+    res.status(200).json({
+      message: `Deleted noise with key ${noiseKey}`
+    })
+  } catch(error) {
+    console.error(`Error deleting noise with id: ${noiseKey}`)
   }
 }

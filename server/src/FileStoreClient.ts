@@ -1,6 +1,6 @@
-import { GetObjectCommand, PutObjectCommand, S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
 import { exists, existsSync, fstat } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises"
+import { mkdir, readFile, unlink, writeFile } from "node:fs/promises"
 import { join } from "node:path";
 
 type UploadResponse = {
@@ -12,6 +12,7 @@ type UploadResponse = {
 interface IFileStoreClient {
     upload: (bucketName: string, key: string, file: Uint8Array, contentType: string) => Promise<UploadResponse | undefined>
     get: (bucketName: string, key: string) => Promise<Uint8Array | null>
+    delete: (bucketName: string, key: string) => Promise<void>
 }
 
 interface SupabaseUploadResponse extends UploadResponse {
@@ -65,6 +66,16 @@ export class SupabaseStorageClient implements IFileStoreClient {
 
         return Body.transformToByteArray()
     }
+
+    async delete(bucketName: string, key: string): Promise<void> {
+        const deleteCommand = new DeleteObjectCommand({
+            Bucket: bucketName,
+            Key: key
+        })
+
+        await this._client.send(deleteCommand)
+    }
+
 }
 
 export const supabaseStorageClient = new SupabaseStorageClient({
@@ -108,4 +119,10 @@ export class LocalFileStoreClient implements IFileStoreClient {
         const filePath = join(this.basePath, bucketName, key)
         return readFile(filePath)
     }
+
+    async delete(bucketName: string, key: string): Promise<void> {
+        const filepath = join(this.basePath, bucketName, key)
+        await unlink(filepath)
+    }
+    
 }

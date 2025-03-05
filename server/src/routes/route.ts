@@ -11,6 +11,7 @@ import {
   userAuthenticateMiddleWare,
   addNoise,
   getNoises,
+  deleteNoise,
 } from '@src/controllers/controllers'
 
 // used for handling multi-part form uploads
@@ -28,3 +29,4 @@ routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)
 // sound routes
 routes.post('/noise', upload.single("audio"), userAuthenticateMiddleWare, addNoise)
 routes.get("/noise", userAuthenticateMiddleWare, getNoises)
+routes.delete("/noise/:noiseKey", userAuthenticateMiddleWare, deleteNoise)
