@@ -2,17 +2,15 @@ import { Router } from 'express'
 import multer from 'multer'
 
 import {
-  checkSanity,
   userRegister,
   userLogin,
   userLogout,
   checkBlacklist,
   userAuthenticate,
   userAuthenticateMiddleWare,
-  addNoise,
-  getNoises,
-  deleteNoise,
-} from '@src/controllers/controllers'
+} from '@src/controllers/users'
+import { checkSanity } from '@src/controllers/status'
+import { addNoise, getNoises, deleteNoise } from '@src/controllers/noises'
 
 // used for handling multi-part form uploads
 const upload = multer({storage: multer.memoryStorage()})
@@ -26,7 +24,7 @@ routes.post('/logout', checkBlacklist, userLogout)
 // protected profile route
 routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)
 
-// sound routes
+// noise routes
 routes.post('/noise', upload.single("audio"), userAuthenticateMiddleWare, addNoise)
 routes.get("/noise", userAuthenticateMiddleWare, getNoises)
 routes.delete("/noise/:noiseKey", userAuthenticateMiddleWare, deleteNoise)
