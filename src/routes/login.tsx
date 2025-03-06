@@ -10,8 +10,8 @@ export const Route = createFileRoute('/login')({
   beforeLoad: async ({ context, search }) => {
     const userData = await context.queryClient.fetchQuery(queryOpts.userData())
     const isAuthenticated = !!userData.user
+    console.log('login', userData)
     if (isAuthenticated) {
-      console.log('redirection happnening')
       throw redirect({ to: search.redirect || '/' })
     }
   },

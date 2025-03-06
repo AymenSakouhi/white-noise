@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 
 import { useMutation } from '@tanstack/react-query'
 import { register as registerApi } from '@/api/user'
@@ -31,7 +32,7 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
     mode: 'onBlur',
   })
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const mutation = useMutation({
     mutationFn: (data: registerSchemaType) => {
@@ -39,16 +40,13 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
       return registerApi({ name, email, password })
     },
     onSuccess: () => {
-      // queryClient.invalidateQueries(['user'])
-      // console.log("success")
+      navigate({
+        to: '/login',
+      })
     },
   })
   const onSubmit = (data: registerSchemaType) => {
     mutation.mutate(data)
-    /* navigate({
-      to: '/login',
-    }) */
-    window.location.href = '/login'
   }
 
   return (

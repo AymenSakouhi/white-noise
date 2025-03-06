@@ -20,6 +20,7 @@ import { sanityCheck } from '@/api/general'
 import { useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Todos from '@/components/Todos'
 
 type Noise = {
   title: string
@@ -81,6 +82,7 @@ export default function Index() {
 
   return (
     <Layout>
+      <Todos />
       <Pomodoro />
       <div className="col-span-full text-sky-200 text-2xl text-center">
         Choose your best combination
