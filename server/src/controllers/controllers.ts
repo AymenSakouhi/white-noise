@@ -13,6 +13,7 @@ export const checkSanity = (req: Request, res: Response) => {
 export const userRegister = (req: Request, res: Response) => {
   queryAndDisconnect(async () => {
     const { name, email, password } = req.body
+    console.log(name, email, password)
     try {
       const existingUser = await prisma.user.findUnique({
         where: {
@@ -53,7 +54,7 @@ export const userLogin = (req: Request, res: Response) => {
       })
       if (!user)
         return res.status(400).json({ message: 'User not found, you dummy!!' })
-      const isMatch = bcrypt.compare(password, user.password)
+      const isMatch = await bcrypt.compare(password, user.password)
       if (!isMatch) {
         return res.status(400).json({ message: 'Invalid credentials' })
       }
@@ -85,7 +86,7 @@ export const userAuthenticateMiddleWare = (
     (err: Error, user: Record<string, string>) => {
       if (err) return next(err)
       if (!user) return res.status(401).json({ message: 'Unauthorized' })
-
+      // check if user is allowed to do stuff otherwise Unauthorize.
       req.user = user // Attach user to request
       next() // Proceed to the next middleware or controller
     },
@@ -95,8 +96,8 @@ export const userAuthenticateMiddleWare = (
 export const userAuthenticate = (req: Request, res: Response) => {
   const token = req.headers?.authorization?.split(' ')[1] as string
   if (token && tokenBlacklist.has(token)) {
-    res.status(401).json({
-      message: 'Token expired, please login again',
+    res.status(403).json({
+      message: 'Token expired, relogin to be able to do todos',
     })
   }
   res.status(200).json({ user: req.user })
@@ -132,7 +133,6 @@ export const userLogout = (req: Request, res: Response) => {
 
 export const addTodo = async (req: Request, res: Response) => {
   const { description } = req.body
-  console.log('backend ==>', req.body, req.user)
   const token = req.headers?.authorization?.split(' ')[1] as string
   const user = req.user as { id: string; [key: string]: string }
   if (token && tokenBlacklist.has(token)) {
