@@ -100,12 +100,6 @@ export const userAuthenticate = (req: Request, res: Response) => {
       message: 'Token expired, relogin to be able to do todos',
     })
   }
-  if (!req.user) {
-    res.status(400).json({
-      message: "No user"
-    })
-    return
-  }
 
   res.status(200).json({ user: req.user })
 }
