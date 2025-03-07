@@ -1,6 +1,5 @@
 import { getProfile } from '@/api/user'
 import { queryOptions } from '@tanstack/react-query'
-import { redirect } from '@tanstack/react-router'
 
 /**
  * This is so you can call all the query options in one place and not have to repeat yourself or forget to update shared options
