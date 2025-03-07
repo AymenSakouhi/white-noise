@@ -10,6 +10,10 @@ const Header = () => {
 
   const mutation = useMutation({
     mutationFn: logout,
+    onSuccess: () => {
+      localStorage.removeItem('token')
+      window.location.href = '/login'
+    },
   })
 
   return (
@@ -41,7 +45,6 @@ const Header = () => {
           <button
             className="flex items-center justify-center gap-2 bg-gray-800 text-gray-400 p-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
             onClick={() => {
-              // signOut(auth)
               mutation.mutate()
             }}
           >

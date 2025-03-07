@@ -25,7 +25,7 @@ model User {
 
 model Todo {
   id          String    @id @default(uuid())
-  description String?
+  description String
   status      Status    @default(PENDING)
   dueDate     DateTime?
   User        User      @relation(fields: [userId], references: [id])
