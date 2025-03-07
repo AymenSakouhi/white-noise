@@ -19,7 +19,7 @@ interface SupabaseUploadResponse extends UploadResponse {
     uri: string
 }
 
-export class SupabaseStorageClient implements IFileStoreClient {
+export class SupabaseFileStoreClient implements IFileStoreClient {
     private _client: S3Client
     private _endpoint: string
 
@@ -78,7 +78,8 @@ export class SupabaseStorageClient implements IFileStoreClient {
 
 }
 
-export const supabaseStorageClient = new SupabaseStorageClient({
+// can remove this is just an example that can be exported if .env keys are set
+export const supabaseFileStoreClient = new SupabaseFileStoreClient({
      forcePathStyle: true,
      region: process.env.S3_REGION || "",
      endpoint: `${process.env.S3_ENDPOINT}/s3` || "",

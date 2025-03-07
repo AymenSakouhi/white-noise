@@ -1,8 +1,13 @@
 import {Request, Response} from 'express'
+import path from 'path'
 
 import prisma, { queryAndDisconnect} from '@src/db/init'
 import { LocalFileStoreClient } from '@src/FileStoreClient'
+
 const fileStoreClient = new LocalFileStoreClient("assets")
+
+// Example with supabaseFileStoreClient
+// const fileStoreClient = supabaseFileStoreClient
 
 interface AddSoundRequest extends Request {
   body: {
@@ -15,31 +20,34 @@ interface AddSoundRequest extends Request {
 
 export const addNoise = async (req: AddSoundRequest, res: Response) => {
   try {
-    const { title, fileType } = req.body
     const audioFile = req.file
 
-    if (!title || !audioFile || !fileType) {
+    if (!audioFile) {
       res
         .status(400)
-        .json({ error: 'Missing title, audio file, or file type.' });
+        .json({ error: 'Missing audio file!' });
       return
     }
 
+    const filename = audioFile.originalname
+    const filetype = path.extname(filename)
+    
+
     const existingNoise = await prisma.noise.findFirst({
       where: {
-        title: title 
+        title: filename 
       }
     })
 
     if (existingNoise !== null) {
       res.status(400).json({
-        message: `noise already exists with ${title}`
+        message: `noise already exists with ${filename}`
       })
       return
     }
 
     const audioData = audioFile.buffer
-    const result = await fileStoreClient.upload("noises", title, audioData, fileType)
+    const result = await fileStoreClient.upload("noises", filename, audioData, filetype)
     if (!result) {
       res.status(500).json({message: "failed to upload file"})
       return
@@ -47,8 +55,8 @@ export const addNoise = async (req: AddSoundRequest, res: Response) => {
 
     const noise = await prisma.noise.create({
       data: {
-        title: title,
-        fileType: fileType,
+        title: filename,
+        fileType: filetype,
         path: result.uri
       }
     })
