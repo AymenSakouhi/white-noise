@@ -6,15 +6,15 @@ interface FetcherOptions {
   token?: string | null
 }
 
-export async function fetcher({
+export async function fetcher<T>({
   url,
   method = 'GET',
   headers = {},
   body = null,
   token = null,
-}: FetcherOptions): Promise<unknown> {
+}: FetcherOptions): Promise<T> {
   const mergedHeaders = {
-    Authorization: `Bearer ${token}`,
+    ...(token ? { Authorization: `Bearer ${token}` } : {}), // only add token if it exists
     'Content-Type': 'application/json',
     ...headers,
   }
@@ -29,5 +29,5 @@ export async function fetcher({
   if (!response.ok && response.status !== 401) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
-  return response.json()
+  return response.json() as Promise<T>
 }
