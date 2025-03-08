@@ -4,12 +4,6 @@ import bcrypt from 'bcryptjs'
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 
-export const checkSanity = (req: Request, res: Response) => {
-  res.status(200).json({
-    status: 'on',
-  })
-}
-
 export const userRegister = async (req: Request, res: Response) => {
   const { name, email, password } = req.body
   try {
@@ -69,7 +63,7 @@ export const userLogin = async (req: Request, res: Response) => {
   }
 }
 // black list to store tokens
-const tokenBlacklist = new Set<string>()
+export const tokenBlacklist = new Set<string>()
 
 // Middleware for authentication
 export const userAuthenticateMiddleWare = (
@@ -97,6 +91,7 @@ export const userAuthenticate = (req: Request, res: Response) => {
       message: 'Token expired, relogin to be able to do todos',
     })
   }
+
   res.status(200).json({ user: req.user })
 }
 

@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 .env
 ./src/firebase/serviceAccountKey.json
+server/pnpm-lock.yaml
+server/assets/noises 
