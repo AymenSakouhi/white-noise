@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 import path from 'path'
 
-import prisma, { queryAndDisconnect} from '@src/db/init'
+import prisma from '@src/db/init'
 import { LocalFileStoreClient } from '@src/FileStoreClient'
 
 const fileStoreClient = new LocalFileStoreClient("assets")
@@ -70,10 +70,8 @@ export const addNoise = async (req: AddSoundRequest, res: Response) => {
 
 export const getNoises = async (req: Request, res: Response) => {
   try {
-    queryAndDisconnect(async () => {
       const noises = await prisma.noise.findMany()
       res.status(200).json({data: { noises }})
-    })
   } catch (error) {
     console.error('Error getting noises:', error);
     res.status(500).json({ error: 'Failed to get noises.' });
@@ -97,12 +95,10 @@ export const deleteNoise = async (req: Request, res: Response) => {
       return
     }
 
-    queryAndDisconnect(async () => {
-      const result = await prisma.noise.delete({
-        where: {
-          id: noise.id
-        }
-      })
+    await prisma.noise.delete({
+      where: {
+        id: noise.id
+      }
     })
 
     fileStoreClient.delete("noises", noiseKey)
