@@ -11,7 +11,7 @@ const ListTodos = () => {
 
   return (
     <ul className="col-span-full mx-12 mt-2 bg-slate-200 shadow-md rounded-lg p-4">
-      {data?.todos.map((todo) => (
+      {data?.todos.map((todo: { description: string; id: string }) => (
         <li
           className="p-2 border-b border-black last:border-none"
           key={todo.id}
