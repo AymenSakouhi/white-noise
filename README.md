@@ -27,9 +27,11 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [x] **delete firebase**
 - [x] **Add some tailwindcss to the timer component**
 - [x] **check MDN status codes**
-- [ ] **Get rid of the queryAndDisconnect function**
+- [x] **Get rid of the queryAndDisconnect function**
 - [ ] **ProEvilz: utilise tanstack routers powerful query params and use the url as the state yoursite . com?search=coffee**
 - [-] **To do lists with some routes in the backendk**
+- [-] **Get rid of the blacklisttoken set on the controller part and switch it to a database**
+- [ ] **Get the fetcher into a react hook**
 - [ ] **set his own metronome in the app**
 - [ ] **small to do app with zustand**
 - [ ] **get some new noises (specially farm)**

@@ -7,7 +7,17 @@ import { AuthProvider } from '@/components/AuthContext'
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      refetchInterval: 1000 * 60 * 10,
+      refetchOnWindowFocus: true,
+      enabled: true,
+    },
+  },
+})
+
 // Create a new router instance
 const router = createRouter({
   routeTree,

@@ -14,13 +14,14 @@ import { useDebounce } from '@/components/hooks/useDebounce'
 import { Input } from '@/components/ui/input'
 
 import { searchSchema } from '@/schemas/searchWhiteNoise'
-import { searchSchematype } from '@/types'
+import { searchSchemaType } from '@/types'
 
 import { sanityCheck } from '@/api/general'
 import { useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Todos from '@/components/Todos'
+import AddTodo from '@/components/AddTodo'
+import ListTodo from '@/components/ListTodos'
 
 type Noise = {
   title: string
@@ -58,7 +59,7 @@ export default function Index() {
   const {
     register,
     formState: { errors },
-  } = useForm<searchSchematype>({
+  } = useForm<searchSchemaType>({
     resolver: zodResolver(searchSchema),
     mode: 'onTouched',
   })
@@ -82,7 +83,8 @@ export default function Index() {
 
   return (
     <Layout>
-      <Todos />
+      <AddTodo />
+      <ListTodo />
       <Pomodoro />
       <div className="col-span-full text-sky-200 text-2xl text-center">
         Choose your best combination
