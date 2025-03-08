@@ -7,7 +7,7 @@ import { LocalFileStoreClient } from '@src/FileStoreClient'
 const fileStoreClient = new LocalFileStoreClient("assets")
 
 // Example with supabaseFileStoreClient
-// const fileStoreClient = supabaseFileStoreClient
+// const fileStoreClient = SupabaseFileStoreClient()
 
 interface AddSoundRequest extends Request {
   body: {

@@ -78,17 +78,6 @@ export class SupabaseFileStoreClient implements IFileStoreClient {
 
 }
 
-// can remove this is just an example that can be exported if .env keys are set
-export const supabaseFileStoreClient = new SupabaseFileStoreClient({
-     forcePathStyle: true,
-     region: process.env.S3_REGION || "",
-     endpoint: `${process.env.S3_ENDPOINT}/s3` || "",
-     credentials: {
-        accessKeyId: process.env.S3_ACCESS_KEY_ID || "",
-        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || ""
-     }
-})
-
 export class LocalFileStoreClient implements IFileStoreClient {
     basePath: string
 
