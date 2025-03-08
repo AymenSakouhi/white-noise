@@ -9,6 +9,7 @@ import {
   userAuthenticate,
   userAuthenticateMiddleWare,
   addTodo,
+  getTodos,
 } from '@src/controllers/controllers'
 
 import { validateData } from '@src/middlewares/middlewares'
@@ -25,3 +26,4 @@ routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)
 
 // todo routes
 routes.post('/todos/add', userAuthenticateMiddleWare, addTodo)
+routes.get('/todos/', userAuthenticateMiddleWare, getTodos)

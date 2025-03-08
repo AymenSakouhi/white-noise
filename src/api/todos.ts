@@ -15,3 +15,12 @@ export const addTodo = async (TodoDetails: TodoDetailsType) => {
     },
   })
 }
+
+export const getTodos = async () => {
+  const token = localStorage.getItem('token')
+  return fetcher<{ description: string; id: string }[]>({
+    url: '/api/todos/',
+    method: 'GET',
+    token,
+  })
+}
