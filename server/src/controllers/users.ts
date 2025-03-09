@@ -85,28 +85,7 @@ export const userAuthenticateMiddleWare = (
 }
 
 export const userAuthenticate = (req: Request, res: Response) => {
-  const token = req.headers?.authorization?.split(' ')[1] as string
-  if (token && tokenBlacklist.has(token)) {
-    res.status(403).json({
-      message: 'Token expired, relogin to be able to do todos',
-    })
-  }
-
   res.status(200).json({ user: req.user })
-}
-
-export const checkBlacklist = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  const token = req.headers.authorization!.split(' ')[1]
-  if (token && tokenBlacklist.has(token)) {
-    res.status(401).json({
-      message: 'Token expired, please login again',
-    })
-  }
-  next()
 }
 
 export const userLogout = (req: Request, res: Response) => {
@@ -125,13 +104,7 @@ export const userLogout = (req: Request, res: Response) => {
 
 export const addTodo = async (req: Request, res: Response) => {
   const { description } = req.body
-  const token = req.headers?.authorization?.split(' ')[1] as string
   const user = req.user as { id: string; [key: string]: string }
-  if (token && tokenBlacklist.has(token)) {
-    res.status(403).json({
-      message: 'Token expired, relogin to be able to do todos',
-    })
-  }
   try {
     await prisma.todo.create({
       data: {
@@ -151,13 +124,7 @@ export const addTodo = async (req: Request, res: Response) => {
 }
 
 export const getTodos = async (req: Request, res: Response) => {
-  const token = req.headers?.authorization?.split(' ')[1] as string
   const user = req.user as { id: string; [key: string]: string }
-  if (token && tokenBlacklist.has(token)) {
-    res.status(403).json({
-      message: 'Token expired, relogin to be able to do todos',
-    })
-  }
   try {
     const todos = await prisma.todo.findMany({
       where: {

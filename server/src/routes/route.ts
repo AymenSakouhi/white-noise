@@ -9,10 +9,7 @@ import {
   userAuthenticate,
   userAuthenticateMiddleWare,
 } from '@src/controllers/users'
-import {
-  addTodo,
-  getTodos,
-} from '@src/controllers/todos'
+import { addTodo, getTodos } from '@src/controllers/todos'
 
 import { checkSanity } from '@src/controllers/status'
 import { validateData } from '@src/middlewares/middlewares'
@@ -26,7 +23,7 @@ export const routes = Router()
 routes.get('/status', checkSanity)
 routes.post('/register', validateData(userRegisterSchema), userRegister)
 routes.post('/login', validateData(userLoginSchema), userLogin)
-routes.post('/logout', checkBlacklist, userLogout)
+routes.post('/logout', userLogout)
 // protected profile route
 routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)
 
@@ -35,6 +32,12 @@ routes.post('/todos/add', userAuthenticateMiddleWare, addTodo)
 routes.get('/todos/', userAuthenticateMiddleWare, getTodos)
 
 // noise routes
-routes.post('/noise', upload.single("audio"), userAuthenticateMiddleWare, addNoise)
-routes.get("/noise", userAuthenticateMiddleWare, getNoises)
-routes.delete("/noise/:noiseKey", userAuthenticateMiddleWare, deleteNoise)
+routes.post(
+  '/noise',
+  upload.single('audio'),
+  userAuthenticateMiddleWare,
+  addNoise,
+)
+routes.get('/noise', userAuthenticateMiddleWare, getNoises)
+routes.delete('/noise/:noiseKey', userAuthenticateMiddleWare, deleteNoise)
+
