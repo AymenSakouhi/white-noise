@@ -3,6 +3,7 @@ import { contactSchema } from '@/schemas/contact'
 import { loginSchema } from '@/schemas/login'
 import { registerSchema } from '@/schemas/register'
 import { searchSchema } from '@/schemas/searchWhiteNoise'
+import { TodoSchema } from '@/schemas/todo'
 
 export type User = {
   user: {
@@ -23,4 +24,6 @@ export type loginSchemaType = z.infer<typeof loginSchema>
 
 export type registerSchemaType = z.infer<typeof registerSchema>
 
-export type searchSchematype = z.infer<typeof searchSchema>
+export type searchSchemaType = z.infer<typeof searchSchema>
+
+export type todoSchemaType = z.infer<typeof TodoSchema>

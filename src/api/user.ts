@@ -1,4 +1,5 @@
 import { fetcher } from '@/lib/fetcher'
+import type { SafeUser } from '@/types'
 
 type USER_DETAILS = {
   name: string
@@ -8,52 +9,45 @@ type USER_DETAILS = {
 
 export const register = async (userDetails: USER_DETAILS) => {
   const { name, email, password } = userDetails
-  const data = await fetcher({
+  return fetcher<{ message: string }>({
     url: '/api/register',
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: {
       name,
       email,
       password,
     },
   })
-  return data
 }
 
 export const login = async (userDetails: Omit<USER_DETAILS, 'name'>) => {
   const { email, password } = userDetails
-  const data = (await fetcher({
+  const data = await fetcher<{ token: string }>({
     url: `/api/login`,
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+    body: {
       email,
       password,
-    }),
-  })) as { token: string }
+    },
+  })
   localStorage.setItem('token', data?.token)
   return data
 }
 
 export const getProfile = async () => {
   const token = localStorage.getItem('token')
-  return await fetcher({
+  return fetcher<{ user: SafeUser }>({
     url: `/api/profile`,
     method: 'POST',
-    headers: { Authorization: `Bearer ${token}` },
+    token,
   })
 }
 
 export const logout = async () => {
   const token = localStorage.getItem('token')
-  return await fetcher({
+  return fetcher<{ message: string }>({
     url: '/api/logout',
     method: 'POST',
-    headers: { Authorization: `Bearer ${token}` },
+    token,
   })
 }

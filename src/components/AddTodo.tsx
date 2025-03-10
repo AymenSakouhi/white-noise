@@ -1,21 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { addTodo } from '@/api/todos'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { TodoSchemaType } from '@/types'
+import { TodoSchema } from '@/schemas/todo'
 
-type TodoSchemaType = {
-  description: string
-}
-
-const TodoSchema = z.object({
-  description: z.string().max(200, { message: 'This field has to be filled.' }),
-})
-
-const Todos = () => {
-  // const queryClient = useQueryClient()
+const AddTodo = () => {
+  const QueryClient = useQueryClient()
   const {
     register,
     handleSubmit,
@@ -30,9 +23,7 @@ const Todos = () => {
       return addTodo({ description })
     },
     onSuccess: () => {
-      console.log('done adding todo')
-      // should probably limit to query key 'user'
-      // queryClient.invalidateQueries({ queryKey: ['user'] })
+      QueryClient.invalidateQueries({ queryKey: ['todos'] })
     },
   })
 
@@ -41,20 +32,26 @@ const Todos = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(handleTodo)}>
+    <form
+      onSubmit={handleSubmit(handleTodo)}
+      className="col-span-full flex flex-col gap-4 p-4 mx-12 bg-slate-200 rounded-lg shadow-md"
+    >
       <Input
         id="description"
         {...register('description')}
         type="description"
-        placeholder="m@example.com"
+        placeholder="Add whatever to do...."
         required
+        className="border-2 border-black"
       />
       {errors?.description?.message && (
         <p className="text-red-700 mb-4">{errors.description?.message}</p>
       )}
-      <Button type="submit">ADD TO DO</Button>
+      <Button type="submit" className="bg-sky-600 hover:bg-sky-700 text-white">
+        ADD TO DO
+      </Button>
     </form>
   )
 }
 
-export default Todos
+export default AddTodo
