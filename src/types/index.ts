@@ -16,6 +16,17 @@ export type User = {
   }
 }
 
+export type Todo = {
+  id: string
+  description: string
+  status: 'PENDING' | 'COMPLETED' | 'IN_PROGRESS' | 'INCOMPLETE'
+  dueDate: Date
+  userId: string
+  categoryId: string
+  createdAt: string
+  updatedAt: string
+}
+
 export type SafeUser = Omit<User, 'password'>
 
 export type ContactSchemaType = z.infer<typeof contactSchema>

@@ -2,6 +2,16 @@ type TodoDetailsType = {
   description: string
 }
 import { fetcher } from '@/lib/fetcher'
+import { Todo } from '@/types'
+
+export const getTodos = async () => {
+  const token = localStorage.getItem('token')
+  return fetcher<{ todos: Todo[] }>({
+    url: '/api/todos/',
+    method: 'GET',
+    token,
+  })
+}
 
 export const addTodo = async (TodoDetails: TodoDetailsType) => {
   const token = localStorage.getItem('token')
@@ -16,11 +26,11 @@ export const addTodo = async (TodoDetails: TodoDetailsType) => {
   })
 }
 
-export const getTodos = async () => {
+export const deleteTodo = async (todoId: string) => {
   const token = localStorage.getItem('token')
-  return fetcher<{ todos: { description: string; id: string }[] }[]>({
-    url: '/api/todos/',
-    method: 'GET',
+  return fetcher<{ message: string }>({
+    url: `/api/todos/delete/${todoId}`,
+    method: 'DELETE',
     token,
   })
 }

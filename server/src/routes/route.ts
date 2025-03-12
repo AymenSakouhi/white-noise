@@ -5,11 +5,10 @@ import {
   userRegister,
   userLogin,
   userLogout,
-  checkBlacklist,
   userAuthenticate,
   userAuthenticateMiddleWare,
 } from '@src/controllers/users'
-import { addTodo, getTodos } from '@src/controllers/todos'
+import { addTodo, deleteTodo, getTodos } from '@src/controllers/todos'
 
 import { checkSanity } from '@src/controllers/status'
 import { validateData } from '@src/middlewares/middlewares'
@@ -28,8 +27,9 @@ routes.post('/logout', userLogout)
 routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)
 
 // todo routes
-routes.post('/todos/add', userAuthenticateMiddleWare, addTodo)
 routes.get('/todos/', userAuthenticateMiddleWare, getTodos)
+routes.post('/todos/add', userAuthenticateMiddleWare, addTodo)
+routes.delete('/todos/delete/:id', userAuthenticateMiddleWare, deleteTodo)
 
 // noise routes
 routes.post(
@@ -40,4 +40,3 @@ routes.post(
 )
 routes.get('/noise', userAuthenticateMiddleWare, getNoises)
 routes.delete('/noise/:noiseKey', userAuthenticateMiddleWare, deleteNoise)
-
