@@ -8,7 +8,12 @@ import {
   userAuthenticate,
   userAuthenticateMiddleWare,
 } from '@src/controllers/users'
-import { addTodo, deleteTodo, getTodos } from '@src/controllers/todos'
+import {
+  addTodo,
+  deleteTodo,
+  getTodos,
+  editStatus,
+} from '@src/controllers/todos'
 
 import { checkSanity } from '@src/controllers/status'
 import { validateData } from '@src/middlewares/middlewares'
@@ -30,6 +35,7 @@ routes.post('/profile', userAuthenticateMiddleWare, userAuthenticate)
 routes.get('/todos/', userAuthenticateMiddleWare, getTodos)
 routes.post('/todos/add', userAuthenticateMiddleWare, addTodo)
 routes.delete('/todos/delete/:id', userAuthenticateMiddleWare, deleteTodo)
+routes.patch('/todos/status/:id', userAuthenticateMiddleWare, editStatus)
 
 // noise routes
 routes.post(

@@ -1,4 +1,4 @@
-import { deleteTodo, getTodos } from '@/api/todos'
+import { deleteTodo, getTodos, updateTodoStatus } from '@/api/todos'
 import { Todo } from '@/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { GiCancel } from 'react-icons/gi'
@@ -11,8 +11,22 @@ const ListTodos = () => {
     queryFn: getTodos,
   })
 
-  const { mutate } = useMutation({
+  const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteTodo(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['todos'],
+      })
+    },
+  })
+
+  type EditStatus = Pick<Todo, 'status' | 'id'>
+
+  const statusMutation = useMutation({
+    mutationFn: (data: EditStatus) => {
+      const { id, status } = data
+      return updateTodoStatus(id, status)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['todos'],
@@ -30,12 +44,25 @@ const ListTodos = () => {
           key={todo.id}
         >
           <div className="flex items-center gap-4">
-            <input type="checkbox" />
-            {todo.description}
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                const changeTask: EditStatus = {
+                  id: todo.id,
+                  status: e.target.checked ? 'COMPLETED' : 'PENDING',
+                }
+                statusMutation.mutate(changeTask)
+              }}
+            />
+            <span
+              className={`${todo.status === 'COMPLETED' && 'line-through'}`}
+            >
+              {todo.description}
+            </span>
           </div>
           <GiCancel
             onClick={() => {
-              mutate(todo.id)
+              deleteMutation.mutate(todo.id)
             }}
           />
         </li>

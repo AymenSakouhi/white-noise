@@ -34,3 +34,16 @@ export const deleteTodo = async (todoId: string) => {
     token,
   })
 }
+
+type Status = Todo['status']
+export const updateTodoStatus = async (todoId: string, status: Status) => {
+  const token = localStorage.getItem('token')
+  return fetcher<{ message: string }>({
+    url: `/api/todos/status/${todoId}`,
+    method: 'PATCH',
+    token,
+    body: {
+      status,
+    },
+  })
+}

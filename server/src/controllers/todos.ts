@@ -60,3 +60,26 @@ export const deleteTodo = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const editStatus = async (req: Request, res: Response) => {
+  const { id } = req.params
+  const { status } = req.body
+  try {
+    await prisma.todo.update({
+      where: {
+        id,
+      },
+      data: {
+        status,
+      },
+    })
+    res.status(200).json({
+      message: `todo of id: ${id} been updated`,
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Issue with updating todos',
+      error,
+    })
+  }
+}
