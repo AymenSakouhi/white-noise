@@ -47,3 +47,19 @@ export const updateTodoStatus = async (todoId: string, status: Status) => {
     },
   })
 }
+
+type Description = Todo['description']
+export const updateTodoDescription = async (
+  todoId: string,
+  description: Description,
+) => {
+  const token = localStorage.getItem('token')
+  return fetcher<{ message: string }>({
+    url: `/api/todos/description/${todoId}`,
+    method: 'PATCH',
+    token,
+    body: {
+      description,
+    },
+  })
+}

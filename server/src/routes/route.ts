@@ -13,6 +13,7 @@ import {
   deleteTodo,
   getTodos,
   editStatus,
+  editDescription,
 } from '@src/controllers/todos'
 
 import { checkSanity } from '@src/controllers/status'
@@ -36,6 +37,11 @@ routes.get('/todos/', userAuthenticateMiddleWare, getTodos)
 routes.post('/todos/add', userAuthenticateMiddleWare, addTodo)
 routes.delete('/todos/delete/:id', userAuthenticateMiddleWare, deleteTodo)
 routes.patch('/todos/status/:id', userAuthenticateMiddleWare, editStatus)
+routes.patch(
+  '/todos/description/:id',
+  userAuthenticateMiddleWare,
+  editDescription,
+)
 
 // noise routes
 routes.post(
