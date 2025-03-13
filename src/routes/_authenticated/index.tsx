@@ -30,6 +30,7 @@ type Noise = {
   isPlaying?: boolean
   isVisible?: boolean
 }
+
 //TODO change the readability of whitenoises to be coming from backend
 const whiteNoiseBlobs =
   Object.entries(soundsAssets)?.map(([path]) => {
