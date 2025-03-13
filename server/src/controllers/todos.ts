@@ -90,7 +90,6 @@ export const editStatus = async (req: Request, res: Response) => {
 export const editDescription = async (req: Request, res: Response) => {
   const { id } = req.params
   const { description } = req.body
-  console.log(id, description)
   try {
     await prisma.todo.update({
       where: {
