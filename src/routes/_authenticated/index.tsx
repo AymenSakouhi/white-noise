@@ -84,12 +84,15 @@ export default function Index() {
 
   return (
     <Layout>
+      <Pomodoro />
+      <h2 className="col-span-full text-2xl text-white text-center hover:bg-gray-800 mb-4">
+        Add your Todo's here
+      </h2>
       <AddTodo />
       <ListTodo />
-      <Pomodoro />
-      <div className="col-span-full text-sky-200 text-2xl text-center">
+      <h2 className="col-span-full text-sky-200 text-2xl text-center mt-4">
         Choose your best combination
-      </div>
+      </h2>
       <form className="col-span-full">
         <div className="w-full flex flex-col items-center justify-center mt-4">
           <Input

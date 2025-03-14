@@ -56,12 +56,12 @@ const Todo = ({ todo }: TodoProps) => {
   })
   return (
     <li
-      className="py-2 px-10 border-b border-black last:border-none flex items-center justify-between"
+      className="py-3 px-6 border-b last:border-none flex items-center justify-between bg-gray-100 rounded-md shadow-md transition-all hover:bg-gray-200 box-border w-full"
       key={todo.id}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 w-full">
         <input
-          className="cursor-pointer"
+          className="cursor-pointer size-5 accent-blue-500"
           type="checkbox"
           onChange={(e) => {
             const changeTask: EditStatus = {
@@ -71,33 +71,36 @@ const Todo = ({ todo }: TodoProps) => {
             statusMutation.mutate(changeTask)
           }}
         />
-        <div className={`${todo.status === 'COMPLETED' && 'line-through'}`}>
-          {isDisabled ? (
-            <span>{todo.description}</span>
-          ) : (
-            <input
-              type="text"
-              value={todoDescription}
-              onChange={(e) => {
-                setTodoDescription(e.target.value)
-              }}
-            />
-          )}
-        </div>
+        {isDisabled ? (
+          <span
+            className={`text-lg ${todo.status === 'COMPLETED' ? 'line-through text-gray-500' : 'text-black'} text-wrap truncate max-w-[300px]`}
+          >
+            {todo.description}
+          </span>
+        ) : (
+          <input
+            className="bg-slate-300 boder border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
+            type="text"
+            value={todoDescription}
+            onChange={(e) => {
+              setTodoDescription(e.target.value)
+            }}
+          />
+        )}
       </div>
-      <div className="flex justify-center gap-4">
+      <div className="flex gap-2">
         {isDisabled ? (
           <CiEdit
-            className="cursor-pointer"
+            className="cursor-pointer text-green-500 text-xl hover:text-green-600"
             onClick={() => {
-              setIsDisabled(!isDisabled)
+              setIsDisabled((prev) => !prev)
             }}
           />
         ) : (
           <GiConfirmed
-            className="cursor-pointer"
+            className="cursor-pointer text-blue-500 text-xl hover:text-blue-600"
             onClick={() => {
-              setIsDisabled(!isDisabled)
+              setIsDisabled((prev) => !prev)
               const data: EditDescription = {
                 id: todo.id,
                 description: todoDescription,
@@ -107,7 +110,7 @@ const Todo = ({ todo }: TodoProps) => {
           />
         )}
         <GiCancel
-          className="cursor-pointer"
+          className="cursor-pointer text-red-500 text-xl hover:text-red-600"
           onClick={() => {
             deleteMutation.mutate(todo.id)
           }}
