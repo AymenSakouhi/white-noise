@@ -12,7 +12,7 @@ const ListTodos = () => {
   if (isLoading) return <div>Loading ...</div>
 
   return (
-    <ul className="col-span-full mx-12 mt-2 bg-slate-200 shadow-md rounded-lg p-4">
+    <ul className="col-span-2 mx-6 bg-slate-700 shadow-md rounded-lg p-4 space-y-4">
       {data?.todos?.map((todo: Todo) => (
         <TodoDetail todo={todo} key={todo.id} />
       ))}

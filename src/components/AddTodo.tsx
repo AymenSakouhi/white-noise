@@ -34,7 +34,7 @@ const AddTodo = () => {
   return (
     <form
       onSubmit={handleSubmit(handleTodo)}
-      className="col-span-full flex flex-col gap-4 p-4 mx-12 bg-slate-200 rounded-lg shadow-md"
+      className="col-span-2 flex flex-col gap-4 p-4 mx-12 bg-slate-200 rounded-lg shadow-md"
     >
       <Input
         id="description"
