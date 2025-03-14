@@ -93,14 +93,14 @@ const Todo = ({ todo }: TodoProps) => {
           <CiEdit
             className="cursor-pointer text-green-500 text-xl hover:text-green-600"
             onClick={() => {
-              setIsDisabled(!isDisabled)
+              setIsDisabled((prev) => !prev)
             }}
           />
         ) : (
           <GiConfirmed
             className="cursor-pointer text-blue-500 text-xl hover:text-blue-600"
             onClick={() => {
-              setIsDisabled(!isDisabled)
+              setIsDisabled((prev) => !prev)
               const data: EditDescription = {
                 id: todo.id,
                 description: todoDescription,
