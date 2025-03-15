@@ -25,7 +25,7 @@ export async function fetcher<T>({
     body: body && typeof body === 'object' ? JSON.stringify(body) : body,
   }
 
-  const response = await fetch(`${import.meta.env.VITE_BASEURL}${url}`, config)
+  const response = await fetch(`${url}`, config)
   if (!response.ok && response.status !== 401) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
