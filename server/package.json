@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "prebuild": "npx prisma migrate dev --name sqllite",
+    "prebuild": "npx prisma generate",
     "build": "rimraf ./dist && npx tsc",
     "prestart": "npm run build",
     "start": "node ./dist/src/server.js",
