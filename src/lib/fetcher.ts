@@ -1,3 +1,5 @@
+import { BASEURL } from '@/constants'
+
 interface FetcherOptions {
   url: string
   method?: string
@@ -25,7 +27,7 @@ export async function fetcher<T>({
     body: body && typeof body === 'object' ? JSON.stringify(body) : body,
   }
 
-  const response = await fetch(`${url}`, config)
+  const response = await fetch(`${BASEURL}${url}`, config)
   if (!response.ok && response.status !== 401) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
