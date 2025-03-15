@@ -37,4 +37,4 @@ export type registerSchemaType = z.infer<typeof registerSchema>
 
 export type searchSchemaType = z.infer<typeof searchSchema>
 
-export type todoSchemaType = z.infer<typeof TodoSchema>
+export type TodoSchemaType = z.infer<typeof TodoSchema>

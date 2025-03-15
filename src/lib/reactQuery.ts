@@ -11,5 +11,4 @@ export const queryOpts = {
       queryKey: ['user'],
       staleTime: 24 * 60 * 60 * 1000,
     }),
-  // TODO userTodos
 }

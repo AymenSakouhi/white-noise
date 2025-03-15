@@ -13,7 +13,7 @@ enum TIMERANGES {
 }
 const Pomodoro = () => {
   // eslint-disable-next-line
-  const [mode, setMode] = useState(TIMERANGES.HALF)
+  const [mode] = useState(TIMERANGES.HALF)
   const [focusTimer, setFocusTimer] = useState(TIMERANGES.HALF)
   const [timerPausable, setTimerPausable] = useState<boolean>(false)
   const [breakTimer, setBreakTimer] = useState(TIMERANGES.BREAK)
