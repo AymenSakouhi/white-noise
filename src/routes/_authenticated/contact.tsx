@@ -20,10 +20,9 @@ function Contact() {
   } = useForm<ContactSchemaType>({
     resolver: zodResolver(contactSchema),
   })
-  // eslint-disable-next-line
   const onSubmit = (data: ContactSchemaType) => {
     //TODO create an api to store contact forms in the backend
-    // console.log(data)
+    console.log(data)
   }
 
   return (

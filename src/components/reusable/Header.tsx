@@ -6,7 +6,7 @@ import { logout } from '@/api/user'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 
 const Header = () => {
-  const { user } = useAuth()
+  const user = useAuth()
 
   const mutation = useMutation({
     mutationFn: logout,
@@ -51,7 +51,7 @@ const Header = () => {
             Log Out
             <BiLogOut />
           </button>
-          <span>{(user && user?.name.split(' ')[0]) || ''}</span>
+          <span>{(user && user.user?.name.split(' ')[0]) || ''}</span>
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
