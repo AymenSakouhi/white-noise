@@ -41,6 +41,7 @@ Below is a list of features for the app. Checkboxes are included to track the im
 - [ ] **Adding Zustand**
 - [ ] **Add a KanbanBoard**
 - [ ] **Change the UI**
+- [ ] **Get a viewer to do a PR**
 
 ### Customization Options
 
