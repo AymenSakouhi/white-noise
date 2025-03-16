@@ -41,6 +41,7 @@
 - [ ] **Adding Zustand**
 - [ ] **Add a KanbanBoard**
 - [ ] **Change the UI**
+- [ ] **Get a viewer to do a PR**
 
 ### Customization Options
 
