@@ -22,7 +22,7 @@ const Header = () => {
         {/* logo */}
         <div className="text-lg font-bold">
           <Link to="/" className="hover:text-gray-300">
-            WhiteNoise
+            WhiteNoise 001
           </Link>
         </div>
         {/* Navigation */}
