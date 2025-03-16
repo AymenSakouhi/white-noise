@@ -6,7 +6,7 @@
 
 ## Features
 
-- Below is a list of features for the app. Checkboxes are included to track the implementation of each feature.
+- below is a list of features for the app. Checkboxes are included to track the implementation of each feature.
 
 ### Core Features
 
