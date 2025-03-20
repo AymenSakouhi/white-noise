@@ -14,7 +14,7 @@ import { useDebounce } from '@/components/hooks/useDebounce'
 import { Input } from '@/components/ui/input'
 
 import { searchSchema } from '@/schemas/searchWhiteNoise'
-import { searchSchemaType } from '@/types'
+import { SearchSchemaType } from '@/types'
 
 import { sanityCheck } from '@/api/general'
 import { useQuery } from '@tanstack/react-query'
@@ -60,7 +60,7 @@ export default function Index() {
   const {
     register,
     formState: { errors },
-  } = useForm<searchSchemaType>({
+  } = useForm<SearchSchemaType>({
     resolver: zodResolver(searchSchema),
     mode: 'onTouched',
   })

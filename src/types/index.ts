@@ -31,10 +31,10 @@ export type SafeUser = Omit<User, 'password'>
 
 export type ContactSchemaType = z.infer<typeof contactSchema>
 
-export type loginSchemaType = z.infer<typeof loginSchema>
+export type LoginSchemaType = z.infer<typeof loginSchema>
 
-export type registerSchemaType = z.infer<typeof registerSchema>
+export type RegisterSchemaType = z.infer<typeof registerSchema>
 
-export type searchSchemaType = z.infer<typeof searchSchema>
+export type SearchSchemaType = z.infer<typeof searchSchema>
 
 export type TodoSchemaType = z.infer<typeof TodoSchema>

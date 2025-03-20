@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { login } from '@/api/user'
 import { loginSchema } from '@/schemas/login'
-import { loginSchemaType } from '@/types'
+import { LoginSchemaType } from '@/types'
 
 import {
   Card,
@@ -31,12 +31,13 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginSchemaType>({
+  } = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
     mode: 'onBlur',
   })
+
   const mutation = useMutation({
-    mutationFn: (data: loginSchemaType) => {
+    mutationFn: (data: LoginSchemaType) => {
       const { email, password } = data
       return login({ email, password })
     },
@@ -47,7 +48,7 @@ const LoginForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
       })
     },
   })
-  const onSubmit = (data: loginSchemaType) => {
+  const onSubmit = (data: LoginSchemaType) => {
     mutation.mutate(data)
   }
 

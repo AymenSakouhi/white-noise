@@ -7,7 +7,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { register as registerApi } from '@/api/user'
 import { registerSchema } from '@/schemas/register'
-import { registerSchemaType } from '@/types'
+import { RegisterSchemaType } from '@/types'
 
 import {
   Card,
@@ -27,7 +27,7 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<registerSchemaType>({
+  } = useForm<RegisterSchemaType>({
     resolver: zodResolver(registerSchema),
     mode: 'onBlur',
   })
@@ -35,7 +35,7 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
   const navigate = useNavigate()
 
   const mutation = useMutation({
-    mutationFn: (data: registerSchemaType) => {
+    mutationFn: (data: RegisterSchemaType) => {
       const { name, email, password } = data
       return registerApi({ name, email, password })
     },
@@ -45,7 +45,7 @@ const RegisterForm: React.FC<React.ComponentPropsWithoutRef<'div'>> = ({
       })
     },
   })
-  const onSubmit = (data: registerSchemaType) => {
+  const onSubmit = (data: RegisterSchemaType) => {
     mutation.mutate(data)
   }
 
