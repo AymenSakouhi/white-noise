@@ -1,6 +1,6 @@
 import { videoIdStripped } from '@/components/AddYourNoise'
 
-export const soundsAssets = import.meta.glob('@/assets/downloads/*', {
+export const soundsAssets = import.meta.glob('/public/downloads/*', {
   eager: true,
 })
 
