@@ -1,8 +1,19 @@
 import { videoIdStripped } from '@/components/AddYourNoise'
+import { MODE } from '@/constants'
 
-export const soundsAssets = import.meta.glob('/public/downloads/*', {
-  eager: true,
-})
+export let soundsAssets = {}
+
+if (MODE === 'development') {
+  soundsAssets = {
+    ...import.meta.glob('/public/**/*.ogg', { eager: true }),
+    ...import.meta.glob('/public/**/*.mp3', { eager: true }),
+  }
+} else {
+  soundsAssets = {
+    ...import.meta.glob('/downloads/*.ogg', { eager: true }),
+    ...import.meta.glob('/downloads/*.mp3', { eager: true }),
+  }
+}
 
 export const converTime = (t: number): string => {
   const timestamp = new Date(t)
