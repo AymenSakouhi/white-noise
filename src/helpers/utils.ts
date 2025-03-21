@@ -5,14 +5,19 @@ export let soundsAssets = {}
 
 if (MODE === 'development') {
   soundsAssets = {
-    ...import.meta.glob('/public/**/*.ogg', { eager: true }),
-    ...import.meta.glob('/public/**/*.mp3', { eager: true }),
+    ...import.meta.glob('/**/*.ogg', { eager: true }),
+    ...import.meta.glob('/**/*.mp3', { eager: true }),
   }
 } else {
-  soundsAssets = {
-    ...import.meta.glob('/downloads/*.ogg', { eager: true }),
-    ...import.meta.glob('/downloads/*.mp3', { eager: true }),
-  }
+  soundsAssets = Object.fromEntries(
+    Object.entries({
+      ...import.meta.glob('/**/*.ogg', { eager: true }),
+      ...import.meta.glob('/**/*.mp3', { eager: true }),
+    }).map(([path, file]) => [
+      path.replace('/noises', '').replace('/dist', ''),
+      file,
+    ]),
+  )
 }
 
 export const converTime = (t: number): string => {
