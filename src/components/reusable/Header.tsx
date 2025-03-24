@@ -17,29 +17,29 @@ const Header = () => {
   })
 
   return (
-    <header className="bg-gray-900 text-gray-100">
+    <header className="bg-gray-900 text-gray-100 font-space">
       <div className="container mx-auto flex items-center justify-between p-4">
         {/* logo */}
-        <div className="text-lg font-bold">
-          <Link to="/" className="hover:text-gray-300">
-            WhiteNoise 001
-          </Link>
+        <div className="text-lg">
+          <nav className="hidden md:flex space-x-6">
+            <Link to="/" className="hover:text-gray-300">
+              SoundFocus
+            </Link>
+            <Link to="/" className="text-gray-300">
+              Home
+            </Link>
+            <Link to="/about" className="text-gray-300">
+              About
+            </Link>
+            <Link to="/services" className="text-gray-300">
+              Services
+            </Link>
+            <Link to="/contact" className="text-gray-300">
+              Contact
+            </Link>
+          </nav>
         </div>
         {/* Navigation */}
-        <nav className="hidden md:flex space-x-6">
-          <Link to="/" className="text-gray-300">
-            Home
-          </Link>
-          <Link to="/about" className="text-gray-300">
-            About
-          </Link>
-          <Link to="/services" className="text-gray-300">
-            Services
-          </Link>
-          <Link to="/contact" className="text-gray-300">
-            Contact
-          </Link>
-        </nav>
         {/* Logout session */}
         <div className="flex items-center justify-center gap-3">
           <button
