@@ -22,8 +22,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import AddTodo from '@/components/AddTodo'
 import ListTodo from '@/components/ListTodos'
+import UploadYourNoise from '@/components/UploadYourNoise'
 
-type Noise = {
+export type Noise = {
   title: string
   Icon: IconType
   path: string
@@ -31,7 +32,7 @@ type Noise = {
   isVisible?: boolean
 }
 
-//TODO change the readability of whitenoises to be coming from backend
+//TODO change the source of this to be backend noises
 const whiteNoiseBlobs =
   Object.entries(soundsAssets)?.map(([path]) => {
     return {
@@ -90,6 +91,7 @@ export default function Index() {
       </h2>
       <AddTodo />
       <ListTodo />
+      <UploadYourNoise />
       <h2 className="col-span-full text-sky-200 text-2xl text-center mt-4">
         Choose your best combination
       </h2>
