@@ -3,43 +3,41 @@ import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-type Noise = {
-  title: string
-  icon: string
-  path: string
-  fileType: string
-}
+import { addNoise } from '@/api/noises'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const UploadYourNoise = () => {
-  const [uploadedNoises, setUploadedNoises] = useState<Noise[]>([])
+  const QueryClient = useQueryClient()
+
+  // const [uploadedNoises, setUploadedNoises] = useState<Noise[]>([])
 
   const {
     register: registerUpload,
     handleSubmit: handleUploadSubmit,
     formState: { errors: uploadErrors },
-    reset: resetUpload,
+    // reset: resetUpload,
   } = useForm<uploadNoiseSchemaType>({
     resolver: zodResolver(uploadNoiseSchema),
   })
 
-  const onSubmitUpload = (data: uploadNoiseSchemaType) => {
-    const file = data.whiteNoiseFile[0]
-    if (!file) return
-    const blobUrl = URL.createObjectURL(file)
-    const newNoise: Noise = {
-      title: file.name.split('.')?.[0],
-      icon: file.name.split('.')?.[0],
-      path: blobUrl,
-      fileType: file.name.split('.')?.[1],
-    }
-    setUploadedNoises((prev) => [...prev, newNoise])
-    resetUpload()
+  const mutation = useMutation({
+    mutationFn: (data: uploadNoiseSchemaType) => {
+      // setUploadedNoises((prev) => [...prev, newNoise])
+      // resetUpload()
+      return addNoise(data)
+    },
+    onSuccess: () => {
+      QueryClient.invalidateQueries({ queryKey: ['noises'] })
+    },
+  })
+
+  const onUploadSubmit = (data: uploadNoiseSchemaType) => {
+    mutation.mutate(data)
   }
 
   return (
     <form
-      onSubmit={handleUploadSubmit(onSubmitUpload)}
+      onSubmit={handleUploadSubmit(onUploadSubmit)}
       className="w-full flex flex-col items-center justify-center mt-6"
     >
       <label
@@ -53,7 +51,7 @@ const UploadYourNoise = () => {
         type="file"
         id="whiteNoiseFile"
         accept="audio/*"
-        className="hidden"
+        // className="hidden"
       />
       {uploadErrors.whiteNoiseFile && (
         <p className="text-red-500 mt-2 text-sm">

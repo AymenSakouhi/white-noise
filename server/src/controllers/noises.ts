@@ -18,6 +18,7 @@ interface AddSoundRequest extends Request {
 }
 
 export const addNoise = async (req: AddSoundRequest, res: Response) => {
+  console.log(req)
   try {
     const audioFile = req.file
 
@@ -109,4 +110,3 @@ export const deleteNoise = async (req: Request, res: Response) => {
     console.error(`Error deleting noise with id: ${noiseKey}`)
   }
 }
-
