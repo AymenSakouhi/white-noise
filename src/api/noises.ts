@@ -21,7 +21,7 @@ type AddNoiseResponse = {
 
 export const addNoise = async (file: uploadNoiseSchemaType) => {
   const token = localStorage.getItem('token')
-  const noise = file.whiteNoiseFile?.[0]
+  const noise = file.whiteNoiseFile[0]
 
   if (!noise) {
     throw new Error('No file selected')
@@ -41,6 +41,7 @@ export const addNoise = async (file: uploadNoiseSchemaType) => {
     url: '/api/noises/add/',
     method: 'POST',
     token,
+    isFormData: true,
     body: formData,
   })
 }

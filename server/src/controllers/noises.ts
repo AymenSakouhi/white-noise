@@ -18,10 +18,9 @@ interface AddSoundRequest extends Request {
 }
 
 export const addNoise = async (req: AddSoundRequest, res: Response) => {
-  console.log(req)
   try {
     const audioFile = req.file
-
+    console.log(audioFile)
     if (!audioFile) {
       res.status(400).json({ error: 'Missing audio file!' })
       return

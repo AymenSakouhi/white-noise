@@ -46,7 +46,7 @@ routes.patch(
 // noise routes
 routes.post(
   '/noises/add',
-  upload.single('audio'),
+  upload.single('file'),
   userAuthenticateMiddleWare,
   addNoise,
 )
