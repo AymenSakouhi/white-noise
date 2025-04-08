@@ -17,6 +17,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'Space Grotesque';
+  src: url('/fonts/SpaceGrotesk-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -106,8 +113,6 @@
     @apply bg-background text-foreground;
   }
 }
-
-
 
 @layer base {
   * {

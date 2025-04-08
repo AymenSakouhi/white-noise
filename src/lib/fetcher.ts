@@ -4,7 +4,8 @@ interface FetcherOptions {
   url: string
   method?: string
   headers?: Record<string, string>
-  body?: BodyInit | null | undefined | Record<string, string>
+  isFormData: boolean | null
+  body?: BodyInit
   token?: string | null
 }
 
@@ -14,17 +15,25 @@ export async function fetcher<T>({
   headers = {},
   body = null,
   token = null,
+  isFormData = null,
 }: FetcherOptions): Promise<T> {
   const mergedHeaders = {
     ...(token ? { Authorization: `Bearer ${token}` } : {}), // only add token if it exists
-    'Content-Type': 'application/json',
+    ...(!isFormData
+      ? {
+          'Content-Type': 'application/json',
+        }
+      : {}),
     ...headers,
   }
 
   const config: RequestInit = {
     method,
     headers: mergedHeaders,
-    body: body && typeof body === 'object' ? JSON.stringify(body) : body,
+    body:
+      body && typeof body === 'object' && !isFormData
+        ? JSON.stringify(body)
+        : body,
   }
 
   const response = await fetch(`${BASEURL}${url}`, config)

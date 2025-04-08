@@ -33,6 +33,9 @@
 - [ ] **Get rid of the blacklisttoken set on the controller part and switch it to a database**
 - [ ] **Get the fetcher into a react hook**
 - [x] **Adding coolify and making sure that the app works**
+- [ ] **to set a time for when to finish a todo + add priority**
+- [ ] **space grotesque font to adopt into the app**
+- [ ] **use a proper task issue tracker**
 - [ ] **set his own metronome in the app**
 - [ ] **small to do app with zustand**
 - [ ] **get some new noises (specially farm)**

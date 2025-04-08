@@ -20,7 +20,7 @@ interface AddSoundRequest extends Request {
 export const addNoise = async (req: AddSoundRequest, res: Response) => {
   try {
     const audioFile = req.file
-
+    console.log(audioFile)
     if (!audioFile) {
       res.status(400).json({ error: 'Missing audio file!' })
       return
@@ -109,4 +109,3 @@ export const deleteNoise = async (req: Request, res: Response) => {
     console.error(`Error deleting noise with id: ${noiseKey}`)
   }
 }
-
